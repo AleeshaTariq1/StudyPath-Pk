@@ -1,1177 +1,1509 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StudyPath Pakistan — FSc Career Counselling</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>StudyPath PK — AI Career Guidance for FSc Students</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap');
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap');
 
   :root {
     --green: #1a7a4a;
     --green-light: #22a85f;
-    --green-pale: #e8f5ee;
-    --navy: #0f2240;
-    --gold: #d4a017;
-    --gold-pale: #fdf5e0;
+    --green-pale: #e6f5ed;
+    --emerald: #0d5c38;
+    --gold: #c9a227;
+    --gold-light: #f0d073;
+    --white: #ffffff;
+    --ink: #0f1a14;
+    --ink-mid: #2e3d35;
+    --ink-soft: #5a6e62;
+    --surface: #f5faf7;
+    --border: #d1e8da;
     --red: #c0392b;
-    --bg: #f7f9fc;
-    --card: #ffffff;
-    --border: #e2e8f0;
-    --text: #1e293b;
-    --muted: #64748b;
-    --radius: 12px;
+    --blue: #1a6ea8;
   }
 
-  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* NAV */
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  h1,h2,h3,h4,h5 { font-family: 'Syne', sans-serif; line-height: 1.2; }
+
+  /* ── NAV ── */
   nav {
-    background: var(--navy);
-    padding: 0 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
     position: sticky; top: 0; z-index: 100;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    background: var(--emerald);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; height: 56px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.2);
   }
-  .nav-logo { font-family: 'Syne', sans-serif; font-size: 20px; color: #fff; display: flex; align-items: center; gap: 8px; }
-  .nav-logo span { color: var(--gold); }
-  .nav-tabs { display: flex; gap: 4px; overflow-x: auto; }
-  .nav-tab {
-    background: none; border: none; color: #94a3b8; padding: 8px 14px;
-    cursor: pointer; border-radius: 8px; font-size: 13px; font-weight: 500;
-    white-space: nowrap; transition: all .2s;
+  .nav-brand { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--white); cursor: pointer; letter-spacing: -.5px; }
+  .nav-brand span { color: var(--gold-light); }
+  .nav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+  .nav-links button {
+    background: none; border: none; color: rgba(255,255,255,.8);
+    font-family: 'Inter', sans-serif; font-size: .82rem; font-weight: 500;
+    padding: 6px 11px; border-radius: 6px; cursor: pointer; transition: all .15s;
   }
-  .nav-tab:hover { color: #fff; background: rgba(255,255,255,0.08); }
-  .nav-tab.active { color: #fff; background: var(--green); }
+  .nav-links button:hover, .nav-links button.active { background: rgba(255,255,255,.15); color: var(--white); }
 
-  /* MAIN */
-  main { max-width: 1100px; margin: 0 auto; padding: 28px 20px; }
+  /* ── PAGES ── */
+  .page { display: none; min-height: calc(100vh - 56px); }
+  .page.active { display: block; }
 
-  .section { display: none; }
-  .section.active { display: block; }
-
-  /* HERO */
+  /* ── HERO ── */
   .hero {
-    background: linear-gradient(135deg, var(--navy) 0%, #1a3a6e 100%);
-    border-radius: 16px; padding: 40px 36px; color: #fff; margin-bottom: 28px;
+    background: linear-gradient(135deg, var(--emerald) 0%, var(--green) 60%, #1d8f52 100%);
+    color: var(--white); padding: 64px 24px 56px; text-align: center; position: relative; overflow: hidden;
   }
-  .hero h1 { font-family: 'Syne', sans-serif; font-size: 32px; line-height: 1.2; margin-bottom: 10px; }
-  .hero h1 span { color: var(--gold); }
-  .hero p { color: #94a3b8; font-size: 15px; max-width: 560px; }
-  .flag-stripe { display: flex; gap: 6px; margin-bottom: 16px; }
-  .flag-stripe div { height: 4px; border-radius: 2px; }
-
-  /* CARDS */
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
-  .card-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-
-  /* GRID */
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  @media(max-width: 700px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
-
-  /* FORM ELEMENTS */
-  label { font-size: 13px; font-weight: 600; color: var(--muted); display: block; margin-bottom: 6px; }
-  input, select, textarea {
-    width: 100%; padding: 10px 14px; border: 1.5px solid var(--border);
-    border-radius: 8px; font-size: 14px; font-family: inherit;
-    background: var(--bg); color: var(--text); outline: none; transition: border .2s;
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
-  input:focus, select:focus, textarea:focus { border-color: var(--green); }
-  .form-group { margin-bottom: 14px; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); border-radius: 20px; padding: 4px 14px; font-size: .78rem; margin-bottom: 20px; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; margin-bottom: 16px; }
+  .hero h1 em { font-style: normal; color: var(--gold-light); }
+  .hero p { font-size: 1.05rem; opacity: .85; max-width: 560px; margin: 0 auto 32px; }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; border-radius: 8px; font-family: 'Syne', sans-serif; font-weight: 700; font-size: .9rem; cursor: pointer; border: none; transition: all .18s; text-decoration: none; }
+  .btn-primary { background: var(--gold); color: var(--ink); }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,.5); }
+  .btn-outline:hover { background: rgba(255,255,255,.1); border-color: var(--white); }
+  .btn-green { background: var(--green); color: var(--white); }
+  .btn-green:hover { background: var(--green-light); }
 
-  /* BUTTONS */
-  .btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600;
-    cursor: pointer; border: none; transition: all .2s;
-  }
-  .btn-primary { background: var(--green); color: #fff; }
-  .btn-primary:hover { background: var(--green-light); }
-  .btn-secondary { background: var(--navy); color: #fff; }
-  .btn-outline { background: none; border: 1.5px solid var(--green); color: var(--green); }
-  .btn-sm { padding: 6px 14px; font-size: 13px; }
-  .btn-gold { background: var(--gold); color: #fff; }
-  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  /* ── STATS BAR ── */
+  .stats-bar { background: var(--surface); border-bottom: 1px solid var(--border); display: flex; justify-content: center; gap: 0; flex-wrap: wrap; }
+  .stat-item { text-align: center; padding: 18px 32px; border-right: 1px solid var(--border); }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--green); }
+  .stat-label { font-size: .75rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .05em; }
 
-  /* BADGES */
-  .badge {
-    display: inline-block; padding: 3px 10px; border-radius: 20px;
-    font-size: 11px; font-weight: 700; letter-spacing: .4px;
+  /* ── CARDS GRID ── */
+  .section { padding: 48px 24px; max-width: 1100px; margin: 0 auto; }
+  .section-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 6px; }
+  .section-sub { color: var(--ink-soft); margin-bottom: 28px; font-size: .92rem; }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+  .feature-card {
+    background: var(--white); border: 1.5px solid var(--border); border-radius: 12px;
+    padding: 24px; cursor: pointer; transition: all .18s;
   }
+  .feature-card:hover { border-color: var(--green); box-shadow: 0 4px 20px rgba(26,122,74,.12); transform: translateY(-2px); }
+  .feature-icon { font-size: 1.8rem; margin-bottom: 12px; }
+  .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+  .feature-card p { font-size: .83rem; color: var(--ink-soft); line-height: 1.5; }
+  .feature-tag { display: inline-block; font-size: .7rem; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-top: 10px; background: var(--green-pale); color: var(--green); }
+
+  /* ── INNER PAGE HEADER ── */
+  .page-header { background: var(--emerald); color: var(--white); padding: 36px 24px 28px; }
+  .page-header h2 { font-size: 1.8rem; font-weight: 800; }
+  .page-header p { opacity: .8; margin-top: 6px; font-size: .92rem; }
+
+  /* ── CONTENT ── */
+  .content { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+  /* ── FORMS ── */
+  .form-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 28px; }
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: .82rem; font-weight: 600; color: var(--ink-mid); }
+  .form-group input, .form-group select, .form-group textarea {
+    padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 7px;
+    font-family: 'Inter', sans-serif; font-size: .9rem; color: var(--ink);
+    background: var(--white); transition: border-color .15s; outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--green); }
+  .form-actions { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* ── RESULT CARDS ── */
+  .result-list { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+  .result-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 20px; }
+  .result-card.highlight { border-color: var(--green); background: var(--green-pale); }
+
+  /* ── BADGE ── */
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: .75rem; font-weight: 600; }
   .badge-green { background: var(--green-pale); color: var(--green); }
-  .badge-gold { background: var(--gold-pale); color: #996600; }
-  .badge-navy { background: #e8edf5; color: var(--navy); }
-  .badge-red { background: #fdecea; color: var(--red); }
+  .badge-gold { background: #fef9e7; color: #8a6c00; }
+  .badge-red { background: #fdf0ef; color: var(--red); }
+  .badge-blue { background: #e8f4fd; color: var(--blue); }
+  .badge-gray { background: #f0f0f0; color: #555; }
 
-  /* AI RESULT */
-  #ai-result {
-    background: linear-gradient(135deg, #f0f9f4 0%, #e8f5ee 100%);
-    border: 1.5px solid #b2dfcc; border-radius: var(--radius); padding: 20px;
-    margin-top: 20px; white-space: pre-wrap; line-height: 1.7; font-size: 14px;
-    min-height: 60px; display: none;
-  }
-  #ai-result.loading { color: var(--muted); font-style: italic; display: block; }
-  #ai-result.done { display: block; }
+  /* ── TABLE ── */
+  .table-wrap { overflow-x: auto; border-radius: 10px; border: 1.5px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+  th { background: var(--surface); color: var(--ink-mid); font-family: 'Syne', sans-serif; font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 11px 14px; text-align: left; border-bottom: 1.5px solid var(--border); }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--surface); }
 
-  /* UNIVERSITY TABLE */
-  .uni-table-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th { background: var(--navy); color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; }
-  td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
-  tr:hover td { background: #f8fafc; }
-  .uni-name { font-weight: 600; color: var(--navy); }
-  .uni-city { color: var(--muted); font-size: 12px; }
+  /* ── UNIVERSITY CARD ── */
+  .uni-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 20px; cursor: pointer; transition: all .18s; }
+  .uni-card:hover { border-color: var(--green); box-shadow: 0 4px 16px rgba(26,122,74,.1); transform: translateY(-2px); }
+  .uni-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+  .uni-meta { font-size: .82rem; color: var(--ink-soft); display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+  .uni-programs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .prog-tag { font-size: .72rem; background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 2px 8px; color: var(--ink-mid); }
+  .unis-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
 
-  /* FILTERS */
-  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
-  .filters select { width: auto; padding: 7px 12px; font-size: 13px; }
-
-  /* MERIT CALC */
-  .merit-result { background: var(--green-pale); border: 1.5px solid #b2dfcc; border-radius: var(--radius); padding: 20px; margin-top: 20px; display: none; }
-  .merit-big { font-size: 48px; font-weight: 800; color: var(--green); line-height: 1; margin-bottom: 8px; }
-  .merit-chances { margin-top: 16px; }
-  .chance-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #c8e6d8; }
-  .chance-item:last-child { border-bottom: none; }
-  .chance-bar { height: 6px; border-radius: 3px; background: #b2dfcc; margin-top: 4px; }
-  .chance-fill { height: 100%; border-radius: 3px; background: var(--green); }
-
-  /* QUIZ */
-  .quiz-card { text-align: center; padding: 32px; }
-  .quiz-question { font-size: 18px; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
-  .quiz-subject { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
-  .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: left; margin-bottom: 20px; }
+  /* ── QUIZ ── */
+  .quiz-progress { height: 5px; background: var(--border); border-radius: 3px; margin-bottom: 24px; }
+  .quiz-progress-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width .4s; }
+  .quiz-q { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 20px; }
+  .quiz-options { display: flex; flex-direction: column; gap: 10px; }
   .quiz-opt {
-    padding: 12px 16px; border: 2px solid var(--border); border-radius: 8px;
-    cursor: pointer; font-size: 14px; background: var(--card); transition: all .2s;
+    padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 9px;
+    cursor: pointer; font-size: .9rem; transition: all .15s;
+    display: flex; align-items: center; gap: 10px; background: var(--white);
   }
   .quiz-opt:hover { border-color: var(--green); background: var(--green-pale); }
-  .quiz-opt.correct { border-color: var(--green); background: var(--green-pale); }
-  .quiz-opt.wrong { border-color: var(--red); background: #fdecea; }
-  .quiz-opt.disabled { pointer-events: none; }
-  .timer-bar { height: 6px; background: var(--border); border-radius: 3px; margin-bottom: 20px; }
-  .timer-fill { height: 100%; border-radius: 3px; background: var(--green); transition: width 1s linear; }
-  .quiz-timer { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
-  .explanation { background: var(--gold-pale); border: 1.5px solid #e8c85a; border-radius: 8px; padding: 14px; margin-bottom: 16px; font-size: 13px; text-align: left; }
-  .quiz-score { font-size: 36px; font-weight: 800; color: var(--green); }
+  .quiz-opt.selected { border-color: var(--green); background: var(--green-pale); font-weight: 600; }
+  .quiz-opt-letter { width: 28px; height: 28px; border-radius: 50%; background: var(--surface); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; font-size: .8rem; flex-shrink: 0; }
+  .quiz-opt.selected .quiz-opt-letter { background: var(--green); color: var(--white); }
 
-  /* TABS INSIDE SECTIONS */
-  .sub-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
-  .sub-tab { padding: 7px 16px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--card); cursor: pointer; font-size: 13px; font-weight: 500; transition: all .2s; }
-  .sub-tab.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+  /* ── MATCH CARD ── */
+  .match-card { border-radius: 12px; padding: 20px; margin-bottom: 14px; border: 1.5px solid var(--border); }
+  .match-bar-wrap { background: var(--border); border-radius: 3px; height: 6px; margin: 10px 0 4px; }
+  .match-bar { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--green), var(--green-light)); }
 
-  /* DEADLINE */
-  .deadline-item { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); }
-  .deadline-date { min-width: 72px; font-weight: 700; font-size: 13px; color: var(--green); }
+  /* ── MCQ ── */
+  .mcq-opt { padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px; cursor: pointer; font-size: .88rem; margin-bottom: 8px; transition: all .15s; display: flex; gap: 10px; align-items: center; }
+  .mcq-opt:hover { border-color: var(--green); }
+  .mcq-opt.correct { border-color: #27ae60; background: #eafaf1; }
+  .mcq-opt.wrong { border-color: var(--red); background: #fdf0ef; }
+  .mcq-opt.selected { border-color: var(--blue); background: #e8f4fd; }
+
+  /* ── FORUM ── */
+  .post-card { border: 1.5px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 12px; cursor: pointer; transition: all .15s; }
+  .post-card:hover { border-color: var(--green); }
+  .post-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .97rem; margin-bottom: 6px; }
+  .post-meta { font-size: .78rem; color: var(--ink-soft); display: flex; gap: 14px; flex-wrap: wrap; }
+  .post-tag { font-size: .7rem; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+
+  /* ── MERIT ── */
+  .chance-high { color: #27ae60; font-weight: 700; }
+  .chance-medium { color: var(--gold); font-weight: 700; }
+  .chance-low { color: var(--red); font-weight: 700; }
+
+  /* ── MODAL ── */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 20px; }
+  .modal-overlay.hidden { display: none; }
+  .modal { background: var(--white); border-radius: 16px; max-width: 720px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 28px; }
+  .modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+  .modal-close { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--ink-soft); line-height: 1; }
+  .modal-section { margin-bottom: 20px; }
+  .modal-section h4 { font-family: 'Syne', sans-serif; font-size: .9rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--green); margin-bottom: 10px; }
+
+  /* ── FILTER BAR ── */
+  .filter-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+  .filter-bar input, .filter-bar select { padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 7px; font-size: .85rem; font-family: 'Inter', sans-serif; outline: none; background: var(--white); }
+  .filter-bar input:focus, .filter-bar select:focus { border-color: var(--green); }
+
+  /* ── SCHOLARSHIP CARD ── */
+  .sch-card { border: 1.5px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 12px; }
+  .sch-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+  .sch-amount { font-size: 1.1rem; font-weight: 700; color: var(--green); margin-bottom: 6px; }
+
+  /* ── DEADLINE CARD ── */
+  .deadline-card { border: 1.5px solid var(--border); border-radius: 10px; padding: 14px 18px; margin-bottom: 10px; display: flex; align-items: center; gap: 16px; }
+  .deadline-date { font-family: 'Syne', sans-serif; font-weight: 800; font-size: .95rem; color: var(--green); min-width: 80px; }
   .deadline-info { flex: 1; }
-  .deadline-info strong { font-size: 14px; display: block; }
-  .deadline-info span { font-size: 12px; color: var(--muted); }
-  .deadline-tag { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+  .deadline-title { font-weight: 600; font-size: .9rem; }
+  .deadline-sub { font-size: .8rem; color: var(--ink-soft); }
 
-  /* SCHOLARSHIP */
-  .scholarship-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; }
-  .scholarship-card h3 { font-size: 15px; margin-bottom: 6px; }
-  .scholarship-meta { display: flex; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-bottom: 10px; }
-  .scholarship-meta strong { color: var(--text); }
+  /* ── DOC CHECKLIST ── */
+  .doc-item { display: flex; align-items: flex-start; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--border); }
+  .doc-item:last-child { border-bottom: none; }
+  .doc-check { width: 20px; height: 20px; border-radius: 5px; border: 2px solid var(--border); flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-top: 2px; transition: all .15s; }
+  .doc-check.done { background: var(--green); border-color: var(--green); color: white; }
 
-  /* CHECKLIST */
-  .checklist-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
-  .checklist-item input[type="checkbox"] { width: 16px; height: 16px; margin-top: 2px; accent-color: var(--green); flex-shrink: 0; }
-  .checklist-item label { font-size: 14px; color: var(--text); font-weight: 400; margin: 0; cursor: pointer; }
+  /* ── LOADING ── */
+  .loading { display: flex; align-items: center; gap: 10px; color: var(--ink-soft); padding: 24px 0; }
+  .spinner { width: 18px; height: 18px; border: 2.5px solid var(--border); border-top-color: var(--green); border-radius: 50%; animation: spin .7s linear infinite; flex-shrink: 0; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* STAT BOXES */
-  .stat-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; text-align: center; }
-  .stat-num { font-size: 32px; font-weight: 800; color: var(--green); }
-  .stat-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  /* ── EMPTY ── */
+  .empty { text-align: center; padding: 48px 24px; color: var(--ink-soft); }
+  .empty-icon { font-size: 2.5rem; margin-bottom: 12px; }
 
-  /* PERSONALITY QUIZ */
-  .pquiz-option { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 2px solid var(--border); border-radius: 8px; cursor: pointer; margin-bottom: 8px; font-size: 14px; transition: all .2s; }
-  .pquiz-option:hover, .pquiz-option.selected { border-color: var(--green); background: var(--green-pale); }
-  .pquiz-option input { accent-color: var(--green); width: 16px; height: 16px; flex-shrink: 0; }
+  /* ── PILL TABS ── */
+  .pill-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
+  .pill-tab { padding: 7px 16px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--white); font-size: .83rem; font-weight: 600; cursor: pointer; transition: all .15s; font-family: 'Syne', sans-serif; }
+  .pill-tab:hover { border-color: var(--green); color: var(--green); }
+  .pill-tab.active { background: var(--green); border-color: var(--green); color: var(--white); }
 
-  /* PROGRESS */
-  .progress-bar { height: 8px; background: var(--border); border-radius: 4px; margin-bottom: 20px; }
-  .progress-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--green), var(--green-light)); transition: width .4s; }
+  /* ── COUNTDOWN ── */
+  .timer-bar { background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; font-size: .88rem; }
+  .timer-val { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--green); }
+  .timer-val.warn { color: var(--red); }
 
-  /* CAREER PATH CARDS */
-  .career-path { border: 2px solid var(--border); border-radius: var(--radius); padding: 18px; cursor: pointer; transition: all .2s; text-align: center; }
-  .career-path:hover { border-color: var(--green); transform: translateY(-2px); }
-  .career-path.selected { border-color: var(--green); background: var(--green-pale); }
-  .career-path-icon { font-size: 32px; margin-bottom: 8px; }
-  .career-path h3 { font-size: 14px; font-weight: 700; }
+  /* ── MISC ── */
+  .divider { height: 1px; background: var(--border); margin: 24px 0; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } .stat-item { padding: 14px 20px; } }
+  a { color: var(--green); }
 
-  /* ALERTS */
-  .alert-banner { background: linear-gradient(135deg, #fff8e1, #fdf5e0); border: 1.5px solid var(--gold); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
-  .alert-banner .icon { font-size: 24px; }
-  
-  /* MAP PLACEHOLDER */
-  .map-placeholder { background: linear-gradient(135deg, var(--green-pale), #d4edda); border: 2px dashed var(--green); border-radius: var(--radius); padding: 40px; text-align: center; color: var(--green); }
+  /* ── PROFILE RESULT ── */
+  .personality-header { background: linear-gradient(135deg, var(--green), var(--emerald)); color: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; text-align: center; }
+  .personality-type { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+  .score-ring { display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,.15); font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; }
 
-  /* LOADING DOTS */
-  .dots::after { content: ''; animation: dots 1.5s infinite; }
-  @keyframes dots { 0%,20%{content:'.'} 40%{content:'..'} 60%,100%{content:'...'} }
+  /* TOOLTIP */
+  .info { font-size: .78rem; color: var(--ink-soft); font-style: italic; margin-top: 4px; }
 
-  /* FOOTER */
-  .footer { text-align: center; padding: 32px 20px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); margin-top: 40px; }
+  .flex-between { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .flex-gap { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 </style>
 </head>
 <body>
 
+<!-- ── NAV ── -->
 <nav>
-  <div class="nav-logo">🎓 Future<span>Path</span> PK</div>
-  <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showSection('career')">🧭 Career Guide</button>
-    <button class="nav-tab" onclick="showSection('universities')">🏫 Universities</button>
-    <button class="nav-tab" onclick="showSection('merit')">📊 Merit Calc</button>
-    <button class="nav-tab" onclick="showSection('testprep')">🎯 Test Prep</button>
-    <button class="nav-tab" onclick="showSection('alerts')">🔔 Alerts</button>
-    <button class="nav-tab" onclick="showSection('scholarships')">💰 Scholarships</button>
-    <button class="nav-tab" onclick="showSection('map')">🗺️ Map</button>
+  <div class="nav-brand" onclick="showPage('home')">Study<span>Path</span> PK</div>
+  <div class="nav-links">
+    <button onclick="showPage('career')" id="nav-career">Career AI</button>
+    <button onclick="showPage('universities')" id="nav-universities">Universities</button>
+    <button onclick="showPage('merit')" id="nav-merit">Merit Calc</button>
+    <button onclick="showPage('tests')" id="nav-tests">Test Prep</button>
+    <button onclick="showPage('scholarships')" id="nav-scholarships">Scholarships</button>
+    <button onclick="showPage('forum')" id="nav-forum">Forum</button>
+    <button onclick="showPage('calendar')" id="nav-calendar">Deadlines</button>
   </div>
 </nav>
 
-<main>
-
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SECTION 1: CAREER COUNSELLING -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div id="section-career" class="section active">
+<!-- ══════════════════════════════════════════════ HOME ══ -->
+<div id="page-home" class="page active">
   <div class="hero">
-    <div class="flag-stripe">
-      <div style="width:40px;background:#01411C;"></div>
-      <div style="width:10px;background:#fff;"></div>
-    </div>
-    <h1>Your Future Starts <span>Here</span></h1>
-    <p>AI-powered career counselling designed for FSc students in Pakistan. Get personalized university and program recommendations.</p>
-  </div>
-
-  <div class="grid-3" style="margin-bottom:24px;">
-    <div class="stat-box"><div class="stat-num">200+</div><div class="stat-label">HEC Universities</div></div>
-    <div class="stat-box"><div class="stat-num">500+</div><div class="stat-label">Programs Listed</div></div>
-    <div class="stat-box"><div class="stat-num">Free</div><div class="stat-label">For All Students</div></div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">🧭 Step 1 — Choose Your Path</div>
-    <div class="grid-3" id="career-paths">
-      <div class="career-path" onclick="selectPath(this,'Engineering')">
-        <div class="career-path-icon">⚙️</div>
-        <h3>Engineering</h3>
-        <p style="font-size:12px;color:var(--muted);margin-top:4px;">Civil, Mechanical, Electrical, CS</p>
-      </div>
-      <div class="career-path" onclick="selectPath(this,'Medical')">
-        <div class="career-path-icon">🏥</div>
-        <h3>Medical</h3>
-        <p style="font-size:12px;color:var(--muted);margin-top:4px;">MBBS, BDS, Pharmacy, Nursing</p>
-      </div>
-      <div class="career-path" onclick="selectPath(this,'Computer Science')">
-        <div class="career-path-icon">💻</div>
-        <h3>Computer Science</h3>
-        <p style="font-size:12px;color:var(--muted);margin-top:4px;">BS-CS, AI, Data Science, SE</p>
-      </div>
-      <div class="career-path" onclick="selectPath(this,'Business')">
-        <div class="career-path-icon">📈</div>
-        <h3>Business</h3>
-        <p style="font-size:12px;color:var(--muted);margin-top:4px;">BBA, MBA, Finance, Economics</p>
-      </div>
-      <div class="career-path" onclick="selectPath(this,'Architecture')">
-        <div class="career-path-icon">🏛️</div>
-        <h3>Architecture</h3>
-        <p style="font-size:12px;color:var(--muted);margin-top:4px;">B.Arch, City Planning, Design</p>
-      </div>
-      <div class="career-path" onclick="selectPath(this,'Law & Social Sciences')">
-        <div class="career-path-icon">⚖️</div>
-        <h3>Law & Social Sciences</h3>
-        <p style="font-size:12px;color:var(--muted);margin-top:4px;">LLB, Political Science, IR</p>
-      </div>
+    <div class="hero-badge">🇵🇰 Built for Pakistani FSc Students</div>
+    <h1>Your path from <em>FSc</em> to the right career</h1>
+    <p>AI-powered career counselling, 20+ universities, merit calculators, scholarship finder — everything in one place.</p>
+    <div class="hero-btns">
+      <button class="btn btn-primary" onclick="showPage('career')">🎯 Start Career Quiz</button>
+      <button class="btn btn-outline" onclick="showPage('universities')">🏫 Browse Universities</button>
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-title">📋 Step 2 — Your Academic Profile</div>
-    <div class="grid-2">
-      <div class="form-group">
-        <label>Matric Percentage (%)</label>
-        <input type="number" id="matric-pct" min="0" max="100" placeholder="e.g. 85">
-      </div>
-      <div class="form-group">
-        <label>FSc / Intermediate Percentage (%)</label>
-        <input type="number" id="fsc-pct" min="0" max="100" placeholder="e.g. 78">
-      </div>
-      <div class="form-group">
-        <label>Preferred City</label>
-        <select id="pref-city">
-          <option value="">Any City</option>
-          <option>Lahore</option>
-          <option>Karachi</option>
-          <option>Islamabad</option>
-          <option>Rawalpindi</option>
-          <option>Faisalabad</option>
-          <option>Multan</option>
-          <option>Peshawar</option>
-          <option>Quetta</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Budget (Annual Fee)</label>
-        <select id="budget">
-          <option value="">No Preference</option>
-          <option value="govt">Government Only (Under Rs. 60,000/yr)</option>
-          <option value="low">Under Rs. 3 Lakh/yr</option>
-          <option value="mid">Rs. 3–6 Lakh/yr</option>
-          <option value="high">Any Budget</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Tell us about your interests and goals (optional)</label>
-      <textarea id="student-goals" rows="3" placeholder="e.g. I love maths and want to work in AI, or I want to become a doctor and serve rural communities..."></textarea>
-    </div>
-    <button class="btn btn-primary" onclick="getAIAdvice()" style="width:100%;">🤖 Get AI Career Advice</button>
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num">20+</div><div class="stat-label">Universities</div></div>
+    <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">Scholarships</div></div>
+    <div class="stat-item"><div class="stat-num">29+</div><div class="stat-label">MCQ Questions</div></div>
+    <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Test Types</div></div>
   </div>
 
-  <div id="ai-result"></div>
+  <div class="section">
+    <div class="section-title">Everything you need for admissions</div>
+    <div class="section-sub">From choosing a career to getting your documents ready</div>
+    <div class="features-grid">
+      <div class="feature-card" onclick="showPage('career')">
+        <div class="feature-icon">🤖</div>
+        <h3>AI Career Counsellor</h3>
+        <p>Take a personality quiz or enter your marks & interests to get AI-powered career path recommendations.</p>
+        <span class="feature-tag">AI Powered</span>
+      </div>
+      <div class="feature-card" onclick="showPage('universities')">
+        <div class="feature-icon">🏛️</div>
+        <h3>University Database</h3>
+        <p>Browse 20+ HEC-recognized universities. Filter by city, type, programs, and fee range.</p>
+        <span class="feature-tag">20+ Universities</span>
+      </div>
+      <div class="feature-card" onclick="showPage('merit')">
+        <div class="feature-icon">📊</div>
+        <h3>Merit Calculator</h3>
+        <p>Calculate your aggregate using official ECAT, MDCAT, NTS, and GAT formulas and see your chances.</p>
+        <span class="feature-tag">Official Formulas</span>
+      </div>
+      <div class="feature-card" onclick="showPage('tests')">
+        <div class="feature-icon">📝</div>
+        <h3>Test Preparation</h3>
+        <p>Practice MCQs for ECAT, MDCAT, NTS, and GAT. Take timed mock tests with instant results.</p>
+        <span class="feature-tag">Timed Tests</span>
+      </div>
+      <div class="feature-card" onclick="showPage('scholarships')">
+        <div class="feature-icon">🎓</div>
+        <h3>Scholarship Finder</h3>
+        <p>Discover merit-based, need-based, government, and international scholarships for Pakistani students.</p>
+        <span class="feature-tag">10+ Scholarships</span>
+      </div>
+      <div class="feature-card" onclick="showPage('forum')">
+        <div class="feature-icon">💬</div>
+        <h3>Student Forum</h3>
+        <p>Ask questions, share experiences, and connect with other students going through admissions.</p>
+        <span class="feature-tag">Community</span>
+      </div>
+      <div class="feature-card" onclick="showPage('calendar')">
+        <div class="feature-icon">📅</div>
+        <h3>Admission Calendar</h3>
+        <p>Never miss a deadline. Track application, test, and enrollment deadlines by university.</p>
+        <span class="feature-tag">Stay on Track</span>
+      </div>
+      <div class="feature-card" onclick="showPage('documents')">
+        <div class="feature-icon">📋</div>
+        <h3>Document Checklist</h3>
+        <p>Know exactly what documents you need for university applications — academic, identity, financial.</p>
+        <span class="feature-tag">Checklist</span>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SECTION 2: UNIVERSITIES -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div id="section-universities" class="section">
-  <div class="card">
-    <div class="card-title">🏫 HEC Recognized Universities</div>
-    <div class="filters">
-      <select onchange="filterUnis()" id="f-city">
+<!-- ══════════════════════════════════════════════ CAREER ══ -->
+<div id="page-career" class="page">
+  <div class="page-header">
+    <h2>🤖 AI Career Counsellor</h2>
+    <p>Get personalized career recommendations based on your profile and interests</p>
+  </div>
+  <div class="content">
+    <div class="pill-tabs">
+      <button class="pill-tab active" onclick="switchCareerTab('quiz',this)">Personality Quiz</button>
+      <button class="pill-tab" onclick="switchCareerTab('suggest',this)">By Marks & Interests</button>
+    </div>
+
+    <!-- QUIZ TAB -->
+    <div id="career-quiz-tab">
+      <div id="quiz-container">
+        <div class="form-card">
+          <div class="quiz-progress"><div class="quiz-progress-fill" id="quiz-progress-fill" style="width:0%"></div></div>
+          <div id="quiz-content"></div>
+          <div style="margin-top:20px;display:flex;gap:10px;justify-content:space-between">
+            <button class="btn btn-outline" id="quiz-prev-btn" onclick="quizPrev()" style="border:1.5px solid var(--border);color:var(--ink-mid)" disabled>← Previous</button>
+            <button class="btn btn-green" id="quiz-next-btn" onclick="quizNext()">Next →</button>
+          </div>
+        </div>
+      </div>
+      <div id="quiz-result" style="display:none"></div>
+    </div>
+
+    <!-- SUGGEST TAB -->
+    <div id="career-suggest-tab" style="display:none">
+      <div class="form-card">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Matric Percentage (%)</label>
+            <input type="number" id="s-matric" placeholder="e.g. 85" min="0" max="100"/>
+          </div>
+          <div class="form-group">
+            <label>FSc Percentage (%)</label>
+            <input type="number" id="s-fsc" placeholder="e.g. 88" min="0" max="100"/>
+          </div>
+          <div class="form-group">
+            <label>Preferred City (optional)</label>
+            <select id="s-city">
+              <option value="">Any city</option>
+              <option>Lahore</option><option>Karachi</option><option>Islamabad</option>
+              <option>Rawalpindi</option><option>Faisalabad</option><option>Multan</option>
+              <option>Peshawar</option><option>Quetta</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Annual Fee Budget (PKR)</label>
+            <select id="s-budget">
+              <option value="">No limit</option>
+              <option value="100000">Up to 1 Lakh</option>
+              <option value="300000">Up to 3 Lakh</option>
+              <option value="500000">Up to 5 Lakh</option>
+              <option value="1000000">Up to 10 Lakh</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="margin-top:14px">
+          <label>Interests / Hobbies (comma-separated)</label>
+          <input type="text" id="s-interests" placeholder="e.g. math, computers, helping people, drawing"/>
+          <span class="info">Add 2–5 interests to get better results</span>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-green" onclick="getSuggestions()">🎯 Get Career Suggestions</button>
+        </div>
+      </div>
+      <div id="suggest-result"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ UNIVERSITIES ══ -->
+<div id="page-universities" class="page">
+  <div class="page-header">
+    <h2>🏛️ University Database</h2>
+    <p>Browse HEC-recognized universities across Pakistan</p>
+  </div>
+  <div class="content">
+    <div class="filter-bar">
+      <input type="text" id="uni-search" placeholder="🔍 Search by name or city…" oninput="filterUniversities()" style="flex:1;min-width:160px"/>
+      <select id="uni-city" onchange="filterUniversities()">
         <option value="">All Cities</option>
         <option>Lahore</option><option>Karachi</option><option>Islamabad</option>
         <option>Rawalpindi</option><option>Faisalabad</option><option>Multan</option>
         <option>Peshawar</option><option>Quetta</option>
       </select>
-      <select onchange="filterUnis()" id="f-type">
-        <option value="">Public & Private</option>
-        <option>Public</option><option>Private</option>
-      </select>
-      <select onchange="filterUnis()" id="f-prog">
-        <option value="">All Programs</option>
-        <option>Engineering</option><option>Medical</option>
-        <option>Computer Science</option><option>Business</option>
-        <option>Architecture</option><option>Law</option>
-      </select>
-      <select onchange="filterUnis()" id="f-fee">
-        <option value="">Any Fee</option>
-        <option value="low">Under Rs. 3 Lakh</option>
-        <option value="mid">Rs. 3–6 Lakh</option>
-        <option value="high">Above Rs. 6 Lakh</option>
-      </select>
-    </div>
-    <div class="uni-table-wrap">
-      <table id="uni-table">
-        <thead>
-          <tr>
-            <th>University</th>
-            <th>Programs</th>
-            <th>Entry Test</th>
-            <th>Annual Fee</th>
-            <th>Last Merit</th>
-            <th>Type</th>
-          </tr>
-        </thead>
-        <tbody id="uni-body"></tbody>
-      </table>
-    </div>
-    <p style="color:var(--muted);font-size:12px;margin-top:12px;">Showing <span id="uni-count">0</span> universities. Data for 2024–25 admissions. Always verify with official university websites.</p>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SECTION 3: MERIT CALCULATOR -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div id="section-merit" class="section">
-  <div class="card">
-    <div class="card-title">📊 Aggregate Merit Calculator</div>
-    <div class="alert-banner">
-      <span class="icon">ℹ️</span>
-      <div>
-        <strong>How Merit is Calculated</strong><br>
-        <span style="font-size:13px;color:var(--muted);">Most universities use: Matric 10% + FSc 40% + Entry Test 50%. Some vary — results show multiple formulas.</span>
-      </div>
-    </div>
-
-    <div class="sub-tabs">
-      <button class="sub-tab active" onclick="selectFormula(this,'ecat')">ECAT Formula</button>
-      <button class="sub-tab" onclick="selectFormula(this,'mdcat')">MDCAT Formula</button>
-      <button class="sub-tab" onclick="selectFormula(this,'nts')">NTS/NAT Formula</button>
-      <button class="sub-tab" onclick="selectFormula(this,'custom')">Custom</button>
-    </div>
-
-    <div id="formula-info" class="alert-banner" style="background:#e8f5ee;border-color:#b2dfcc;">
-      <span class="icon">⚙️</span>
-      <div id="formula-text" style="font-size:13px;">
-        <strong>ECAT Formula:</strong> Matric 10% + FSc 40% + ECAT 50%<br>
-        Used by: UET Lahore, NUST, UET Taxila, NED, MUET
-      </div>
-    </div>
-
-    <div class="grid-2" style="margin-top:16px;">
-      <div class="form-group">
-        <label>Matric Marks (out of 1100)</label>
-        <input type="number" id="m-matric" placeholder="e.g. 990" max="1100">
-      </div>
-      <div class="form-group">
-        <label>FSc Marks (out of 1100)</label>
-        <input type="number" id="m-fsc" placeholder="e.g. 890" max="1100">
-      </div>
-      <div class="form-group">
-        <label id="test-label">ECAT Score (out of 400)</label>
-        <input type="number" id="m-test" placeholder="e.g. 280" id="m-test">
-      </div>
-      <div class="form-group" id="test-total-group">
-        <label>Test Total Marks</label>
-        <input type="number" id="m-test-total" value="400">
-      </div>
-    </div>
-    <button class="btn btn-primary" onclick="calcMerit()" style="width:100%;">Calculate My Aggregate</button>
-
-    <div class="merit-result" id="merit-result">
-      <div style="color:var(--muted);font-size:13px;margin-bottom:4px;">Your Aggregate Score</div>
-      <div class="merit-big" id="merit-score">0.00%</div>
-      <div class="merit-chances" id="merit-chances"></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">📋 Merit Formulas by University</div>
-    <table>
-      <thead><tr><th>University</th><th>Matric</th><th>FSc</th><th>Test</th><th>Test Name</th></tr></thead>
-      <tbody>
-        <tr><td>UET Lahore</td><td>10%</td><td>40%</td><td>50%</td><td>ECAT</td></tr>
-        <tr><td>NUST</td><td>10%</td><td>40%</td><td>50%</td><td>NET (own)</td></tr>
-        <tr><td>FAST-NUCES</td><td>10%</td><td>40%</td><td>50%</td><td>FAST Entry Test</td></tr>
-        <tr><td>LUMS</td><td>—</td><td>—</td><td>—</td><td>SAT / Own Test</td></tr>
-        <tr><td>KEMU (Medical)</td><td>10%</td><td>40%</td><td>50%</td><td>MDCAT</td></tr>
-        <tr><td>AIMC</td><td>10%</td><td>40%</td><td>50%</td><td>MDCAT</td></tr>
-        <tr><td>COMSATS</td><td>10%</td><td>40%</td><td>50%</td><td>ECAT / NTS</td></tr>
-        <tr><td>IBA Karachi</td><td>—</td><td>—</td><td>—</td><td>IBA Own Test</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SECTION 4: TEST PREP -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div id="section-testprep" class="section">
-  <div class="sub-tabs">
-    <button class="sub-tab active" onclick="selectTest(this,'ecat')">⚙️ ECAT</button>
-    <button class="sub-tab" onclick="selectTest(this,'mdcat')">🏥 MDCAT</button>
-    <button class="sub-tab" onclick="selectTest(this,'nts')">📝 NTS NAT</button>
-    <button class="sub-tab" onclick="selectTest(this,'gat')">🎓 GAT</button>
-  </div>
-
-  <div id="test-info" class="card" style="margin-bottom:20px;">
-    <div class="grid-2">
-      <div>
-        <div class="card-title">⚙️ ECAT — Engineering College Admission Test</div>
-        <p style="font-size:13px;color:var(--muted);">Conducted by UET Lahore. Required for all government engineering universities in Punjab.</p>
-        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
-          <span class="badge badge-navy">400 Total Marks</span>
-          <span class="badge badge-green">Physics, Chemistry, Maths</span>
-          <span class="badge badge-gold">MCQ Format</span>
-        </div>
-      </div>
-      <div>
-        <div style="font-size:13px;font-weight:600;margin-bottom:10px;">Subject Distribution</div>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:13px;">Mathematics</span>
-            <div style="display:flex;align-items:center;gap:8px;"><div style="width:80px;height:6px;background:#e2e8f0;border-radius:3px;"><div style="width:36%;height:100%;background:var(--green);border-radius:3px;"></div></div><span style="font-size:12px;color:var(--muted);">36%</span></div>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:13px;">Physics</span>
-            <div style="display:flex;align-items:center;gap:8px;"><div style="width:80px;height:6px;background:#e2e8f0;border-radius:3px;"><div style="width:36%;height:100%;background:#3b82f6;border-radius:3px;"></div></div><span style="font-size:12px;color:var(--muted);">36%</span></div>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:13px;">Chemistry</span>
-            <div style="display:flex;align-items:center;gap:8px;"><div style="width:80px;height:6px;background:#e2e8f0;border-radius:3px;"><div style="width:28%;height:100%;background:var(--gold);border-radius:3px;"></div></div><span style="font-size:12px;color:var(--muted);">28%</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card quiz-card">
-    <div id="quiz-start">
-      <div style="font-size:48px;margin-bottom:12px;">🎯</div>
-      <h2 style="margin-bottom:8px;">MCQ Practice Session</h2>
-      <p style="color:var(--muted);font-size:14px;margin-bottom:24px;">45 seconds per question. Explanations after each answer.</p>
-      <div class="form-group" style="max-width:300px;margin:0 auto 20px;">
-        <label>Number of Questions</label>
-        <select id="q-count">
-          <option value="5">5 Questions (Quick)</option>
-          <option value="10" selected>10 Questions</option>
-          <option value="20">20 Questions (Full Mock)</option>
-        </select>
-      </div>
-      <button class="btn btn-primary" onclick="startQuiz()">Start Practice Test</button>
-    </div>
-
-    <div id="quiz-running" style="display:none;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-        <span style="font-size:13px;color:var(--muted);">Question <span id="q-num">1</span> of <span id="q-total">10</span></span>
-        <div class="quiz-timer" id="q-timer">45</div>
-      </div>
-      <div class="progress-bar"><div class="progress-fill" id="q-progress" style="width:10%"></div></div>
-      <div class="timer-bar"><div class="timer-fill" id="timer-fill" style="width:100%"></div></div>
-      <div class="quiz-subject" id="q-subject">Physics</div>
-      <div class="quiz-question" id="q-question">Loading...</div>
-      <div class="quiz-options" id="q-options"></div>
-      <div class="explanation" id="q-explanation" style="display:none;"></div>
-      <button class="btn btn-primary" id="q-next" style="display:none;" onclick="nextQuestion()">Next Question →</button>
-    </div>
-
-    <div id="quiz-done" style="display:none;">
-      <div style="font-size:48px;margin-bottom:12px;">🏆</div>
-      <div class="quiz-score" id="final-score">8/10</div>
-      <p style="color:var(--muted);margin:8px 0 24px;">Questions Correct</p>
-      <div id="score-feedback" style="margin-bottom:24px;"></div>
-      <button class="btn btn-primary" onclick="startQuiz()">Try Again</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SECTION 5: ALERTS & DEADLINES -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div id="section-alerts" class="section">
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-title">📅 2025 Admission Deadlines</div>
-      <div id="deadlines-list"></div>
-    </div>
-    <div class="card">
-      <div class="card-title">📄 Document Checklist</div>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Check off documents as you prepare them:</p>
-      <div id="doc-checklist"></div>
-      <button class="btn btn-outline btn-sm" onclick="clearChecklist()" style="margin-top:12px;">Reset Checklist</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SECTION 6: SCHOLARSHIPS -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div id="section-scholarships" class="section">
-  <div class="card">
-    <div class="card-title">💰 Available Scholarships for FSc Students</div>
-    <div class="filters">
-      <select onchange="filterScholarships()" id="s-type">
+      <select id="uni-type" onchange="filterUniversities()">
         <option value="">All Types</option>
-        <option>Merit-Based</option>
-        <option>Need-Based</option>
-        <option>Provincial</option>
-        <option>University-Specific</option>
+        <option value="public">Public</option>
+        <option value="private">Private</option>
       </select>
-      <select onchange="filterScholarships()" id="s-prog">
+      <select id="uni-program" onchange="filterUniversities()">
         <option value="">All Programs</option>
-        <option>Engineering</option>
-        <option>Medical</option>
-        <option>Any Program</option>
+        <option>Engineering</option><option>Medical</option><option>Computer Science</option>
+        <option>Business</option><option>Agriculture</option><option>Law</option>
+      </select>
+    </div>
+    <div id="unis-grid" class="unis-grid"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ MERIT ══ -->
+<div id="page-merit" class="page">
+  <div class="page-header">
+    <h2>📊 Merit Calculator</h2>
+    <p>Calculate your aggregate and see which universities you qualify for</p>
+  </div>
+  <div class="content">
+    <div class="form-card">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Matric Percentage (%)</label>
+          <input type="number" id="m-matric" placeholder="e.g. 87" min="0" max="100"/>
+        </div>
+        <div class="form-group">
+          <label>FSc Percentage (%)</label>
+          <input type="number" id="m-fsc" placeholder="e.g. 91" min="0" max="100"/>
+        </div>
+        <div class="form-group">
+          <label>ECAT Score (optional)</label>
+          <input type="number" id="m-ecat" placeholder="e.g. 78" min="0" max="100"/>
+        </div>
+        <div class="form-group">
+          <label>MDCAT Score (optional)</label>
+          <input type="number" id="m-mdcat" placeholder="e.g. 150" min="0" max="210"/>
+        </div>
+        <div class="form-group">
+          <label>NTS Score (optional)</label>
+          <input type="number" id="m-nts" placeholder="e.g. 70" min="0" max="100"/>
+        </div>
+        <div class="form-group">
+          <label>Preferred City</label>
+          <select id="m-city">
+            <option value="">All Cities</option>
+            <option>Lahore</option><option>Karachi</option><option>Islamabad</option>
+            <option>Rawalpindi</option><option>Faisalabad</option><option>Multan</option>
+            <option>Peshawar</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-top:14px">
+        <label>Preferred Programs (optional, comma-separated)</label>
+        <input type="text" id="m-programs" placeholder="e.g. Computer Science, Electrical Engineering"/>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-green" onclick="calculateMerit()">📊 Calculate Merit</button>
+      </div>
+    </div>
+    <div id="merit-scores" style="margin-top:24px"></div>
+    <div id="merit-result"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ TESTS ══ -->
+<div id="page-tests" class="page">
+  <div class="page-header">
+    <h2>📝 Test Preparation</h2>
+    <p>Practice MCQs and take timed mock tests for ECAT, MDCAT, NTS, and GAT</p>
+  </div>
+  <div class="content" id="tests-content">
+    <div class="pill-tabs" id="test-type-tabs">
+      <button class="pill-tab active" onclick="selectTestType('ECAT',this)">ECAT</button>
+      <button class="pill-tab" onclick="selectTestType('MDCAT',this)">MDCAT</button>
+      <button class="pill-tab" onclick="selectTestType('NTS',this)">NTS</button>
+      <button class="pill-tab" onclick="selectTestType('GAT',this)">GAT</button>
+    </div>
+    <div id="test-info-panel"></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px">
+      <button class="btn btn-green" onclick="startMockTest()">⏱️ Start Mock Test</button>
+      <button class="btn" style="background:var(--surface);border:1.5px solid var(--border);color:var(--ink)" onclick="showPractice()">📖 Practice Questions</button>
+    </div>
+    <div id="test-panel"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ SCHOLARSHIPS ══ -->
+<div id="page-scholarships" class="page">
+  <div class="page-header">
+    <h2>🎓 Scholarship Finder</h2>
+    <p>Find merit-based, need-based, government, and international scholarships</p>
+  </div>
+  <div class="content">
+    <div class="filter-bar">
+      <input type="text" id="sch-search" placeholder="🔍 Search scholarships…" oninput="filterScholarships()" style="flex:1;min-width:160px"/>
+      <select id="sch-type" onchange="filterScholarships()">
+        <option value="">All Types</option>
+        <option value="merit">Merit</option>
+        <option value="need-based">Need-Based</option>
+        <option value="government">Government</option>
+        <option value="international">International</option>
       </select>
     </div>
     <div id="scholarships-list"></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SECTION 7: MAP -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div id="section-map" class="section">
-  <div class="card">
-    <div class="card-title">🗺️ University Locations Across Pakistan</div>
-    <div class="map-placeholder" style="min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;">
-      <div style="font-size:60px;">🗺️</div>
-      <h3 style="font-size:20px;">Interactive Map Coming Soon</h3>
-      <p style="color:var(--muted);font-size:14px;max-width:400px;text-align:center;">For now, use the Universities tab with city filters to find universities near you.</p>
-      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:8px;">
-        <span class="badge badge-green">Lahore — 40+ Universities</span>
-        <span class="badge badge-navy">Karachi — 50+ Universities</span>
-        <span class="badge badge-gold">Islamabad — 30+ Universities</span>
-        <span class="badge badge-green">Peshawar — 15+ Universities</span>
-        <span class="badge badge-navy">Multan — 10+ Universities</span>
-        <span class="badge badge-gold">Faisalabad — 12+ Universities</span>
+<!-- ══════════════════════════════════════════════ FORUM ══ -->
+<div id="page-forum" class="page">
+  <div class="page-header">
+    <h2>💬 Student Forum</h2>
+    <p>Ask questions and connect with other students</p>
+  </div>
+  <div class="content">
+    <div style="display:flex;gap:10px;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap">
+      <div class="pill-tabs" style="margin:0" id="forum-cat-tabs">
+        <button class="pill-tab active" onclick="filterForum('',this)">All</button>
+        <button class="pill-tab" onclick="filterForum('admissions',this)">Admissions</button>
+        <button class="pill-tab" onclick="filterForum('career',this)">Career</button>
+        <button class="pill-tab" onclick="filterForum('test-prep',this)">Test Prep</button>
+        <button class="pill-tab" onclick="filterForum('scholarships',this)">Scholarships</button>
+      </div>
+      <button class="btn btn-green" onclick="showNewPost()">+ New Post</button>
+    </div>
+    <div id="new-post-form" style="display:none;margin-bottom:20px">
+      <div class="form-card">
+        <h3 style="margin-bottom:16px;font-family:'Syne',sans-serif">Create New Post</h3>
+        <div class="form-group" style="margin-bottom:12px">
+          <label>Title</label>
+          <input type="text" id="post-title" placeholder="What's your question?"/>
+        </div>
+        <div class="form-grid" style="margin-bottom:12px">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" id="post-author" placeholder="Anonymous Student"/>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select id="post-cat">
+              <option value="admissions">Admissions</option>
+              <option value="career">Career</option>
+              <option value="test-prep">Test Prep</option>
+              <option value="scholarships">Scholarships</option>
+              <option value="general">General</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:14px">
+          <label>Body</label>
+          <textarea id="post-body" rows="4" placeholder="Describe your question or share your experience…"></textarea>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-green" onclick="submitPost()">Post</button>
+          <button class="btn" style="background:var(--surface);border:1.5px solid var(--border);color:var(--ink)" onclick="document.getElementById('new-post-form').style.display='none'">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <div id="forum-list"></div>
+    <div id="forum-post-detail" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ CALENDAR ══ -->
+<div id="page-calendar" class="page">
+  <div class="page-header">
+    <h2>📅 Admission Deadlines</h2>
+    <p>Stay on top of important dates across universities and programs</p>
+  </div>
+  <div class="content">
+    <div class="filter-bar">
+      <select id="cal-type" onchange="filterCalendar()">
+        <option value="">All Types</option>
+        <option value="application">Application</option>
+        <option value="test">Test</option>
+        <option value="result">Result</option>
+        <option value="enrollment">Enrollment</option>
+      </select>
+    </div>
+    <div id="calendar-list"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ DOCUMENTS ══ -->
+<div id="page-documents" class="page">
+  <div class="page-header">
+    <h2>📋 Document Checklist</h2>
+    <p>Everything you need to prepare for university applications</p>
+  </div>
+  <div class="content">
+    <div class="filter-bar">
+      <select id="doc-uni" onchange="loadDocuments()">
+        <option value="0">General Checklist</option>
+      </select>
+    </div>
+    <div class="two-col">
+      <div>
+        <h3 style="font-size:1rem;margin-bottom:14px;font-family:'Syne',sans-serif">📚 Academic</h3>
+        <div id="docs-academic"></div>
+      </div>
+      <div>
+        <h3 style="font-size:1rem;margin-bottom:14px;font-family:'Syne',sans-serif">🪪 Identity</h3>
+        <div id="docs-identity"></div>
+      </div>
+      <div>
+        <h3 style="font-size:1rem;margin-bottom:14px;font-family:'Syne',sans-serif">💰 Financial</h3>
+        <div id="docs-financial"></div>
+      </div>
+      <div>
+        <h3 style="font-size:1rem;margin-bottom:14px;font-family:'Syne',sans-serif">📎 Other</h3>
+        <div id="docs-other"></div>
       </div>
     </div>
   </div>
 </div>
 
-</main>
+<!-- ── UNIVERSITY MODAL ── -->
+<div id="uni-modal" class="modal-overlay hidden" onclick="closeUniModal(event)">
+  <div class="modal" id="uni-modal-content"></div>
+</div>
 
-<div class="footer">StudyPath Pakistan — Free career counselling for FSc students. Data sourced from HEC Pakistan. Always verify with official university websites before applying.</div>
-
+<!-- ══════════════════════════════════════════════ DATA & LOGIC ══ -->
 <script>
-// ═══════════════════════════════════
-// DATA
-// ═══════════════════════════════════
+// ─── DATA ────────────────────────────────────────────────────────────────────
 
 const UNIVERSITIES = [
-  { name:"University of Engineering & Technology (UET)", city:"Lahore", programs:["Engineering"], type:"Public", test:"ECAT", fee:"40,000", fee_cat:"low", merit_last:"82.50", ranking:1 },
-  { name:"NUST", city:"Islamabad", programs:["Engineering","Computer Science"], type:"Public", test:"NET", fee:"80,000", fee_cat:"mid", merit_last:"85.00", ranking:2 },
-  { name:"LUMS", city:"Lahore", programs:["Business","Computer Science","Law"], type:"Private", test:"SAT/Own", fee:"700,000", fee_cat:"high", merit_last:"—", ranking:3 },
-  { name:"Aga Khan University (AKU)", city:"Karachi", programs:["Medical"], type:"Private", test:"MDCAT+Own", fee:"1,200,000", fee_cat:"high", merit_last:"91.00", ranking:4 },
-  { name:"FAST-NUCES", city:"Lahore", programs:["Computer Science","Engineering"], type:"Private", test:"FAST Entry Test", fee:"250,000", fee_cat:"mid", merit_last:"78.50", ranking:5 },
-  { name:"COMSATS University", city:"Islamabad", programs:["Engineering","Computer Science","Business"], type:"Public", test:"ECAT/NTS", fee:"120,000", fee_cat:"mid", merit_last:"75.00", ranking:6 },
-  { name:"King Edward Medical University (KEMU)", city:"Lahore", programs:["Medical"], type:"Public", test:"MDCAT", fee:"32,000", fee_cat:"low", merit_last:"91.50", ranking:7 },
-  { name:"Allama Iqbal Medical College (AIMC)", city:"Lahore", programs:["Medical"], type:"Public", test:"MDCAT", fee:"35,000", fee_cat:"low", merit_last:"88.50", ranking:8 },
-  { name:"University of Karachi", city:"Karachi", programs:["Engineering","Business","Law"], type:"Public", test:"NTS", fee:"25,000", fee_cat:"low", merit_last:"70.00", ranking:9 },
-  { name:"NED University", city:"Karachi", programs:["Engineering"], type:"Public", test:"ECAT", fee:"45,000", fee_cat:"low", merit_last:"80.00", ranking:10 },
-  { name:"IBA Karachi", city:"Karachi", programs:["Business"], type:"Public", test:"IBA Own", fee:"180,000", fee_cat:"mid", merit_last:"—", ranking:11 },
-  { name:"Islamia University Bahawalpur", city:"Multan", programs:["Engineering","Business"], type:"Public", test:"NTS", fee:"30,000", fee_cat:"low", merit_last:"68.00", ranking:12 },
-  { name:"University of Agriculture Faisalabad (UAF)", city:"Faisalabad", programs:["Engineering"], type:"Public", test:"NTS", fee:"35,000", fee_cat:"low", merit_last:"70.00", ranking:13 },
-  { name:"PMAS Arid Agriculture University", city:"Rawalpindi", programs:["Engineering","Computer Science"], type:"Public", test:"NTS", fee:"40,000", fee_cat:"low", merit_last:"65.00", ranking:14 },
-  { name:"University of Engineering & Technology Taxila", city:"Rawalpindi", programs:["Engineering"], type:"Public", test:"ECAT", fee:"38,000", fee_cat:"low", merit_last:"79.00", ranking:15 },
-  { name:"Bahria University", city:"Islamabad", programs:["Engineering","Business","Computer Science"], type:"Private", test:"NTS NAT", fee:"180,000", fee_cat:"mid", merit_last:"75.00", ranking:16 },
-  { name:"Air University", city:"Islamabad", programs:["Engineering","Computer Science"], type:"Public", test:"NTS NAT", fee:"90,000", fee_cat:"mid", merit_last:"74.00", ranking:17 },
-  { name:"University of Peshawar", city:"Peshawar", programs:["Engineering","Law","Business"], type:"Public", test:"NTS", fee:"22,000", fee_cat:"low", merit_last:"67.00", ranking:18 },
-  { name:"University of Balochistan", city:"Quetta", programs:["Engineering","Business"], type:"Public", test:"NTS", fee:"20,000", fee_cat:"low", merit_last:"62.00", ranking:19 },
-  { name:"Quaid-i-Azam University (QAU)", city:"Islamabad", programs:["Computer Science","Law"], type:"Public", test:"Own Test", fee:"28,000", fee_cat:"low", merit_last:"72.00", ranking:20 },
+  { id:1, name:"University of Engineering & Technology", shortName:"UET Lahore", city:"Lahore", province:"Punjab", type:"public", ranking:1, annualFeeMin:30000, annualFeeMax:80000, programs:["Electrical Engineering","Civil Engineering","Mechanical Engineering","Computer Engineering","Chemical Engineering","Software Engineering"], established:1921, website:"https://www.uet.edu.pk", hecRating:"W4", description:"Pakistan's premier engineering university, established in 1921." },
+  { id:2, name:"King Edward Medical University", shortName:"KEMU", city:"Lahore", province:"Punjab", type:"public", ranking:2, annualFeeMin:15000, annualFeeMax:50000, programs:["MBBS","Surgery","Medicine","Paediatrics"], established:1860, website:"https://www.kemu.edu.pk", hecRating:"W5", description:"One of the oldest and most prestigious medical colleges in South Asia." },
+  { id:3, name:"Lahore University of Management Sciences", shortName:"LUMS", city:"Lahore", province:"Punjab", type:"private", ranking:3, annualFeeMin:400000, annualFeeMax:700000, programs:["Computer Science","Business Administration","Economics","Law","Social Sciences","Engineering"], established:1984, website:"https://www.lums.edu.pk", hecRating:"W5" },
+  { id:4, name:"National University of Sciences & Technology", shortName:"NUST", city:"Islamabad", province:"ICT", type:"public", ranking:4, annualFeeMin:50000, annualFeeMax:150000, programs:["Computer Science","Electrical Engineering","Civil Engineering","Business Administration","Medical Sciences","Natural Sciences"], established:1991, website:"https://www.nust.edu.pk", hecRating:"W4" },
+  { id:5, name:"Quaid-i-Azam University", shortName:"QAU", city:"Islamabad", province:"ICT", type:"public", ranking:5, annualFeeMin:20000, annualFeeMax:60000, programs:["Physics","Chemistry","Mathematics","Biotechnology","Computer Science","Economics"], established:1967, website:"https://www.qau.edu.pk", hecRating:"W4" },
+  { id:6, name:"University of Karachi", shortName:"KU", city:"Karachi", province:"Sindh", type:"public", ranking:6, annualFeeMin:10000, annualFeeMax:40000, programs:["Computer Science","Business Administration","Pharmacy","Law","Education","Social Sciences"], established:1951, website:"https://www.uok.edu.pk", hecRating:"W3" },
+  { id:7, name:"Aga Khan University", shortName:"AKU", city:"Karachi", province:"Sindh", type:"private", ranking:7, annualFeeMin:350000, annualFeeMax:600000, programs:["MBBS","Nursing","Education","Media & Communication"], established:1983, website:"https://www.aku.edu", hecRating:"W5" },
+  { id:8, name:"COMSATS University Islamabad", shortName:"CUI", city:"Islamabad", province:"ICT", type:"public", ranking:8, annualFeeMin:60000, annualFeeMax:120000, programs:["Computer Science","Software Engineering","Electrical Engineering","Business Administration","Pharmacy","Biosciences"], established:1998, website:"https://www.comsats.edu.pk", hecRating:"W3" },
+  { id:9, name:"University of Agriculture Faisalabad", shortName:"UAF", city:"Faisalabad", province:"Punjab", type:"public", ranking:9, annualFeeMin:15000, annualFeeMax:45000, programs:["Agriculture","Food Science","Veterinary Science","Agricultural Economics","Plant Pathology"], established:1961, website:"https://www.uaf.edu.pk", hecRating:"W4" },
+  { id:10, name:"Bahauddin Zakariya University", shortName:"BZU", city:"Multan", province:"Punjab", type:"public", ranking:10, annualFeeMin:10000, annualFeeMax:35000, programs:["Computer Science","Business Administration","Law","Chemistry","Physics","English"], established:1975, website:"https://www.bzu.edu.pk", hecRating:"W3" },
+  { id:11, name:"University of Peshawar", shortName:"UoP", city:"Peshawar", province:"KPK", type:"public", ranking:11, annualFeeMin:8000, annualFeeMax:30000, programs:["Computer Science","Business Administration","Law","Geology","Chemistry","Economics"], established:1950, website:"https://www.uop.edu.pk", hecRating:"W3" },
+  { id:12, name:"University of Balochistan", shortName:"UoB", city:"Quetta", province:"Balochistan", type:"public", ranking:12, annualFeeMin:5000, annualFeeMax:20000, programs:["Computer Science","Business Administration","Geology","Chemistry","Physics"], established:1970, website:"https://www.uob.edu.pk", hecRating:"W2" },
+  { id:13, name:"Institute of Business Administration", shortName:"IBA Karachi", city:"Karachi", province:"Sindh", type:"public", ranking:13, annualFeeMin:100000, annualFeeMax:200000, programs:["Business Administration","Computer Science","Economics","Social Sciences"], established:1955, website:"https://www.iba.edu.pk", hecRating:"W5" },
+  { id:14, name:"Fast National University", shortName:"FAST-NUCES", city:"Lahore", province:"Punjab", type:"private", ranking:14, annualFeeMin:150000, annualFeeMax:250000, programs:["Computer Science","Software Engineering","Electrical Engineering","Business Administration"], established:2000, website:"https://www.nu.edu.pk", hecRating:"W4" },
+  { id:15, name:"University of Management & Technology", shortName:"UMT", city:"Lahore", province:"Punjab", type:"private", ranking:15, annualFeeMin:120000, annualFeeMax:200000, programs:["Business Administration","Computer Science","Law","Social Sciences","Engineering"], established:1990, website:"https://www.umt.edu.pk", hecRating:"W3" },
+  { id:16, name:"Forman Christian College", shortName:"FC College", city:"Lahore", province:"Punjab", type:"private", ranking:16, annualFeeMin:80000, annualFeeMax:150000, programs:["Computer Science","Business Administration","Chemistry","Biology","English","Economics"], established:1864, website:"https://www.fccollege.edu.pk", hecRating:"W3" },
+  { id:17, name:"University of Punjab", shortName:"PU", city:"Lahore", province:"Punjab", type:"public", ranking:17, annualFeeMin:10000, annualFeeMax:50000, programs:["Computer Science","Business Administration","Law","Chemistry","Physics","Pharmacy","Education","Social Sciences"], established:1882, website:"https://www.pu.edu.pk", hecRating:"W4" },
+  { id:18, name:"Rawalpindi Medical University", shortName:"RMU", city:"Rawalpindi", province:"Punjab", type:"public", ranking:18, annualFeeMin:20000, annualFeeMax:60000, programs:["MBBS","BDS","Pharmacy","Medical Technology"], established:1974, website:"https://www.rmu.edu.pk", hecRating:"W3" },
+  { id:19, name:"Ghulam Ishaq Khan Institute", shortName:"GIKI", city:"Topi", province:"KPK", type:"private", ranking:19, annualFeeMin:250000, annualFeeMax:400000, programs:["Electrical Engineering","Computer Engineering","Mechanical Engineering","Engineering Sciences","Computer Science"], established:1993, website:"https://www.giki.edu.pk", hecRating:"W4" },
+  { id:20, name:"Dow University of Health Sciences", shortName:"DUHS", city:"Karachi", province:"Sindh", type:"public", ranking:20, annualFeeMin:20000, annualFeeMax:70000, programs:["MBBS","BDS","Pharmacy","Nursing","Public Health"], established:1945, website:"https://www.duhs.edu.pk", hecRating:"W3" }
 ];
 
-const DEADLINES = [
-  { date:"15 Jul 2025", title:"MDCAT Registration", org:"PMC Pakistan", type:"Medical", color:"#c0392b" },
-  { date:"20 Jul 2025", title:"ECAT Registration", org:"UET Lahore", type:"Engineering", color:"#1a7a4a" },
-  { date:"05 Aug 2025", title:"NUST NET Registration", org:"NUST", type:"Engineering", color:"#1a7a4a" },
-  { date:"10 Aug 2025", title:"FAST-NUCES Entry Test", org:"FAST-NUCES", type:"CS/Eng", color:"#2563eb" },
-  { date:"25 Aug 2025", title:"ECAT Test Date", org:"UET Lahore", type:"Engineering", color:"#1a7a4a" },
-  { date:"14 Sep 2025", title:"MDCAT Test Date", org:"PMC Pakistan", type:"Medical", color:"#c0392b" },
-  { date:"20 Sep 2025", title:"UET Lahore Merit List 1", org:"UET Lahore", type:"Engineering", color:"#1a7a4a" },
-  { date:"25 Sep 2025", title:"NUST Final Admission", org:"NUST", type:"Engineering", color:"#2563eb" },
-  { date:"01 Oct 2025", title:"KEMU Merit List", org:"King Edward Medical", type:"Medical", color:"#c0392b" },
-  { date:"15 Oct 2025", title:"COMSATS Admissions Close", org:"COMSATS", type:"Multiple", color:"#6b7280" },
-  { date:"01 Nov 2025", title:"LUMS Application Deadline", org:"LUMS", type:"Multiple", color:"#7c3aed" },
-  { date:"30 Nov 2025", title:"Spring Semester Deadlines", org:"Various Universities", type:"Multiple", color:"#6b7280" },
-];
-
-const DOCUMENTS = [
-  "Original Matric Certificate + 5 attested copies",
-  "Original FSc Certificate / Provisional Certificate",
-  "FSc Detailed Marks Certificate (DMC)",
-  "CNIC copy (or B-Form if under 18)",
-  "Father/Guardian CNIC copy",
-  "4 recent passport-size photographs (white background)",
-  "Domicile Certificate",
-  "Character Certificate from school/college",
-  "Migration Certificate (if applicable)",
-  "ECAT / MDCAT / NTS Score Card",
-  "Medical Fitness Certificate",
-  "Bank Challan / Fee deposit slip",
+const ADMISSION_CRITERIA = [
+  { universityId:1, program:"Electrical Engineering", matricWeight:0.10, fscWeight:0.40, testWeight:0.50, testRequired:"ECAT", lastMerit:82.5, seats:120 },
+  { universityId:1, program:"Civil Engineering", matricWeight:0.10, fscWeight:0.40, testWeight:0.50, testRequired:"ECAT", lastMerit:79.3, seats:100 },
+  { universityId:1, program:"Computer Engineering", matricWeight:0.10, fscWeight:0.40, testWeight:0.50, testRequired:"ECAT", lastMerit:85.1, seats:80 },
+  { universityId:2, program:"MBBS", matricWeight:0.10, fscWeight:0.40, testWeight:0.50, testRequired:"MDCAT", lastMerit:88.2, seats:200 },
+  { universityId:4, program:"Computer Science", matricWeight:0.10, fscWeight:0.30, testWeight:0.60, testRequired:"NTS", lastMerit:78.0, seats:60 },
+  { universityId:4, program:"Electrical Engineering", matricWeight:0.10, fscWeight:0.30, testWeight:0.60, testRequired:"NTS", lastMerit:80.5, seats:80 },
+  { universityId:17, program:"Computer Science", matricWeight:0.15, fscWeight:0.50, testWeight:0.35, testRequired:"NTS", lastMerit:70.0, seats:150 },
+  { universityId:18, program:"MBBS", matricWeight:0.10, fscWeight:0.40, testWeight:0.50, testRequired:"MDCAT", lastMerit:84.0, seats:150 },
+  { universityId:20, program:"MBBS", matricWeight:0.10, fscWeight:0.40, testWeight:0.50, testRequired:"MDCAT", lastMerit:86.5, seats:180 },
+  { universityId:14, program:"Computer Science", matricWeight:0.10, fscWeight:0.40, testWeight:0.50, testRequired:"NTS", lastMerit:72.0, seats:100 },
 ];
 
 const SCHOLARSHIPS = [
-  {
-    name:"HEC Need-Based Scholarship",
-    provider:"Higher Education Commission (HEC)",
-    amount:"Full tuition + Rs. 5,000/month stipend",
-    type:"Need-Based",
-    eligibility:"Family income under Rs. 45,000/month, Min 60% marks",
-    deadline:"August 2025",
-    link:"https://scholarship.hec.gov.pk",
-    programs:["Any Program"],
-  },
-  {
-    name:"Ehsaas Undergraduate Scholarship",
-    provider:"Government of Pakistan",
-    amount:"Up to Rs. 80,000/semester",
-    type:"Need-Based",
-    eligibility:"BISP beneficiaries or family income under Rs. 45,000/month",
-    deadline:"September 2025",
-    link:"https://ehsaas.nadra.gov.pk",
-    programs:["Any Program"],
-  },
-  {
-    name:"LUMS National Outreach Program (NOP)",
-    provider:"LUMS",
-    amount:"Full scholarship (tuition + living)",
-    type:"Merit-Based",
-    eligibility:"FSc 80%+, financial need, interview required",
-    deadline:"January 2026",
-    link:"https://lums.edu.pk/nop",
-    programs:["Any Program"],
-  },
-  {
-    name:"PEEF Scholarship (Punjab)",
-    provider:"Punjab Education Endowment Fund",
-    amount:"Rs. 40,000/semester",
-    type:"Provincial",
-    eligibility:"Punjab domicile, family income under Rs. 45,000/month, 60%+ in FSc",
-    deadline:"July 2025",
-    link:"https://peef.org.pk",
-    programs:["Any Program"],
-  },
-  {
-    name:"Prime Minister's STEM Scholarship",
-    provider:"Government of Pakistan",
-    amount:"Rs. 50,000/semester",
-    type:"Merit-Based",
-    eligibility:"Science/Engineering/Medical programs, 70%+ in FSc",
-    deadline:"August 2025",
-    link:"https://pmstudentportal.edu.pk",
-    programs:["Engineering","Medical","Computer Science"],
-  },
-  {
-    name:"Aga Khan Foundation Scholarship",
-    provider:"Aga Khan Foundation",
-    amount:"Full tuition + stipend",
-    type:"Need-Based",
-    eligibility:"Demonstrated financial need, academic excellence",
-    deadline:"March 2026",
-    link:"https://akdn.org/akf_scholarships",
-    programs:["Any Program"],
-  },
+  { id:1, name:"HEC Need-Based Scholarship", universityId:null, type:"government", amount:"Full fee waiver + PKR 4,000/month stipend", eligibility:"Family income < PKR 45,000/month. Enrolled in a recognized HEC university.", deadline:"2025-09-30", programs:["All Programs"], link:"https://hec.gov.pk/scholarships" },
+  { id:2, name:"Ehsaas Undergraduate Scholarship", universityId:null, type:"government", amount:"PKR 100,000/year + hostel support", eligibility:"Registered under Ehsaas NSER. FSc with 60%+ marks.", deadline:"2025-08-15", programs:["All Programs"], link:"https://ehsaas.nadra.gov.pk" },
+  { id:3, name:"LUMS National Outreach Program (NOP)", universityId:3, type:"need-based", amount:"100% fee waiver + monthly stipend", eligibility:"Exceptional academic record. Annual family income < PKR 1.2 million.", deadline:"2025-12-01", programs:["All Programs"], link:"https://www.lums.edu.pk/nop" },
+  { id:4, name:"Fulbright Scholarship Program", universityId:null, type:"international", amount:"Full tuition + living allowance + travel", eligibility:"Pakistani citizen. 16 years education for graduate programs. 3.0+ GPA.", deadline:"2025-10-01", programs:["All Programs"], link:"https://pk.usembassy.gov/education-culture/fulbright/" },
+  { id:5, name:"NUST Merit Scholarship", universityId:4, type:"merit", amount:"25% to 100% fee waiver based on rank", eligibility:"Top rankers in NUST entry test. Minimum 70% aggregate.", deadline:"At Admission", programs:["Engineering","Computer Science","Business Administration"], link:"https://www.nust.edu.pk" },
+  { id:6, name:"AKU Financial Aid", universityId:7, type:"need-based", amount:"Up to 100% fee waiver", eligibility:"Strong academic background. Financial need demonstrated via income declaration.", deadline:"With Application", programs:["MBBS","Nursing","Education"], link:"https://www.aku.edu" },
+  { id:7, name:"Dawood Scholarship", universityId:null, type:"merit", amount:"PKR 50,000 to 200,000/year", eligibility:"Engineering students. 75%+ marks in FSc and entry test.", deadline:"2025-10-15", programs:["Engineering"], link:null },
+  { id:8, name:"Punjab Educational Endowment Fund (PEEF)", universityId:null, type:"government", amount:"PKR 50,000 to 100,000/year", eligibility:"Domicile of Punjab. 60%+ in Matric and FSc. Need-based.", deadline:"2025-07-31", programs:["All Programs"], link:"https://peef.org.pk" },
+  { id:9, name:"GIKI Merit Scholarship", universityId:19, type:"merit", amount:"25% to 100% tuition waiver", eligibility:"Top 10% in GIKI entry test. 80%+ FSc marks.", deadline:"At Admission", programs:["Electrical Engineering","Computer Engineering","Mechanical Engineering"], link:"https://www.giki.edu.pk" },
+  { id:10, name:"Akhuwat Education Services", universityId:null, type:"need-based", amount:"Full tuition fee support + books", eligibility:"Family income < PKR 50,000/month. Any accredited university.", deadline:"Rolling", programs:["All Programs"], link:"https://akhuwat.org.pk" }
 ];
 
-const QUIZ_QUESTIONS = {
-  ecat: [
-    { subject:"Physics", q:"A ball is thrown vertically upward with velocity 20 m/s. What is the maximum height reached? (g = 10 m/s²)", opts:["10 m","20 m","30 m","40 m"], ans:1, exp:"Using v² = u² - 2gh → 0 = 400 - 20h → h = 20 m. Formula: h = u²/2g" },
-    { subject:"Mathematics", q:"If log₂(x) = 5, what is the value of x?", opts:["10","25","32","64"], ans:2, exp:"log₂(x) = 5 means x = 2⁵ = 32. Always convert log to exponential form." },
-    { subject:"Chemistry", q:"What is the molecular formula of Benzene?", opts:["C₂H₂","C₄H₄","C₆H₆","C₈H₈"], ans:2, exp:"Benzene is C₆H₆. It is an aromatic compound with alternating double bonds in a hexagonal ring." },
-    { subject:"Physics", q:"The unit of electric charge is:", opts:["Ampere","Watt","Coulomb","Volt"], ans:2, exp:"Coulomb (C) is the SI unit of electric charge. 1 Coulomb = charge of 6.24 × 10¹⁸ electrons." },
-    { subject:"Mathematics", q:"What is the derivative of sin(x)?", opts:["cos(x)","-cos(x)","-sin(x)","tan(x)"], ans:0, exp:"d/dx[sin(x)] = cos(x). This is a fundamental derivative to memorize for ECAT." },
-    { subject:"Chemistry", q:"An element with atomic number 17 belongs to which group?", opts:["Group 1","Group 16","Group 17","Group 18"], ans:2, exp:"Atomic number 17 is Chlorine (Cl), which belongs to Group 17 (Halogens)." },
-    { subject:"Physics", q:"Ohm's Law states that V = ?", opts:["I/R","IR","I²R","√(IR)"], ans:1, exp:"Ohm's Law: V = IR, where V = voltage, I = current, R = resistance." },
-    { subject:"Mathematics", q:"∫x dx = ?", opts:["x + C","x²/2 + C","2x + C","x² + C"], ans:1, exp:"∫x dx = x²/2 + C. The power rule of integration: ∫xⁿ dx = xⁿ⁺¹/(n+1) + C" },
-    { subject:"Chemistry", q:"What type of bond is formed between Na and Cl?", opts:["Covalent","Metallic","Ionic","Hydrogen"], ans:2, exp:"NaCl (table salt) forms an ionic bond. Na gives 1 electron to Cl, creating Na⁺ and Cl⁻ ions." },
-    { subject:"Physics", q:"The speed of light in vacuum is approximately:", opts:["3×10⁶ m/s","3×10⁸ m/s","3×10¹⁰ m/s","3×10¹² m/s"], ans:1, exp:"Speed of light c = 3×10⁸ m/s (approximately 300,000 km/s). This is a fundamental constant." },
-    { subject:"Mathematics", q:"What is the value of sin(90°)?", opts:["0","0.5","√2/2","1"], ans:3, exp:"sin(90°) = 1. Key angles to remember: sin(0°)=0, sin(30°)=0.5, sin(60°)=√3/2, sin(90°)=1" },
-    { subject:"Chemistry", q:"How many electrons can the M shell (n=3) hold?", opts:["2","8","18","32"], ans:2, exp:"The M shell (n=3) can hold 2n² = 2(9) = 18 electrons maximum." },
-    { subject:"Physics", q:"Power is defined as:", opts:["Force × Displacement","Work / Time","Mass × Acceleration","Charge / Time"], ans:1, exp:"Power P = Work/Time = W/t. Its SI unit is Watt (W) = Joule/second." },
-    { subject:"Mathematics", q:"If 2x + 3 = 11, then x = ?", opts:["3","4","5","6"], ans:1, exp:"2x = 11 - 3 = 8, so x = 4. Always isolate the variable step by step." },
-    { subject:"Chemistry", q:"What is the valency of Oxygen?", opts:["1","2","3","4"], ans:1, exp:"Oxygen has valency 2 because it needs 2 electrons to complete its outer shell (it has 6 valence electrons, needs 8)." },
-    { subject:"Physics", q:"Newton's First Law is also called:", opts:["Law of Motion","Law of Inertia","Law of Gravitation","Law of Momentum"], ans:1, exp:"Newton's First Law is the Law of Inertia: an object at rest stays at rest, and an object in motion stays in motion unless acted upon by a force." },
-    { subject:"Mathematics", q:"What is the area of a circle with radius 7 cm? (π ≈ 22/7)", opts:["44 cm²","154 cm²","49 cm²","22 cm²"], ans:1, exp:"Area = πr² = (22/7) × 7² = (22/7) × 49 = 22 × 7 = 154 cm²" },
-    { subject:"Chemistry", q:"Distilled water is a:", opts:["Good conductor","Bad conductor","Semiconductor","Superconductor"], ans:1, exp:"Pure/distilled water is a bad conductor of electricity because it contains no dissolved ions. Impure water conducts due to dissolved salts." },
-    { subject:"Physics", q:"Which quantity has both magnitude and direction?", opts:["Speed","Mass","Time","Velocity"], ans:3, exp:"Velocity is a vector quantity (has magnitude + direction). Speed is scalar (magnitude only)." },
-    { subject:"Mathematics", q:"log₁₀(1000) = ?", opts:["2","3","4","10"], ans:1, exp:"log₁₀(1000) = log₁₀(10³) = 3. Remember: log₁₀(10ⁿ) = n" },
-  ],
-  mdcat: [
-    { subject:"Biology", q:"The powerhouse of the cell is:", opts:["Nucleus","Mitochondria","Ribosome","Golgi Apparatus"], ans:1, exp:"Mitochondria produce ATP through cellular respiration, providing energy for cellular activities." },
-    { subject:"Chemistry", q:"The pH of pure water at 25°C is:", opts:["0","7","14","5"], ans:1, exp:"Pure water has pH 7 (neutral). pH < 7 is acidic, pH > 7 is basic/alkaline." },
-    { subject:"Biology", q:"DNA replication is:", opts:["Conservative","Semi-conservative","Dispersive","Random"], ans:1, exp:"DNA replication is semi-conservative — each new DNA molecule has one original strand and one newly synthesized strand." },
-    { subject:"Physics", q:"Blood pressure is measured with a:", opts:["Stethoscope","Thermometer","Sphygmomanometer","Glucometer"], ans:2, exp:"Sphygmomanometer measures blood pressure. Normal blood pressure is 120/80 mmHg." },
-    { subject:"Biology", q:"Which blood group is the universal donor?", opts:["A","B","AB","O negative"], ans:3, exp:"O negative (O-) is the universal donor — it has no A, B, or Rh antigens, so it can be given to any blood type." },
-    { subject:"Chemistry", q:"Enzyme action is affected by:", opts:["Color only","Temperature and pH","Pressure only","Light intensity"], ans:1, exp:"Enzymes are sensitive to temperature and pH. Each enzyme has an optimal temperature (37°C in humans) and pH." },
-    { subject:"Biology", q:"The process of cell division in somatic cells is:", opts:["Meiosis","Mitosis","Budding","Fission"], ans:1, exp:"Somatic (body) cells divide by mitosis, producing 2 identical daughter cells. Meiosis occurs in sex cells." },
-    { subject:"Physics", q:"X-rays were discovered by:", opts:["Marie Curie","Wilhelm Röntgen","Louis Pasteur","Alexander Fleming"], ans:1, exp:"Wilhelm Röntgen discovered X-rays in 1895. He received the first Nobel Prize in Physics in 1901." },
-    { subject:"Biology", q:"Insulin is produced by which gland?", opts:["Thyroid","Adrenal","Pancreas","Pituitary"], ans:2, exp:"Insulin is produced by beta cells in the Islets of Langerhans in the pancreas. It regulates blood glucose levels." },
-    { subject:"Chemistry", q:"Which vitamin is produced by the skin in sunlight?", opts:["Vitamin A","Vitamin B12","Vitamin C","Vitamin D"], ans:3, exp:"Vitamin D is synthesized by the skin when exposed to UV radiation from sunlight. It's essential for calcium absorption." },
-  ],
-  nts: [
-    { subject:"English", q:"The synonym of 'Diligent' is:", opts:["Lazy","Hardworking","Careless","Reckless"], ans:1, exp:"Diligent means careful and persistent in work. Synonym: hardworking, industrious." },
-    { subject:"Mathematics", q:"If 20% of x = 50, then x = ?", opts:["200","250","300","400"], ans:1, exp:"20% × x = 50 → 0.20x = 50 → x = 50/0.20 = 250" },
-    { subject:"Analytical", q:"A is B's father. B is C's brother. What is A to C?", opts:["Uncle","Grandfather","Father","Brother"], ans:2, exp:"A is B's father. B is C's brother, so C is B's sibling. Therefore A is also C's father." },
-    { subject:"English", q:"Choose the correctly spelled word:", opts:["Accomodate","Accommodate","Acommodate","Accomadate"], ans:1, exp:"The correct spelling is 'Accommodate' — remember double C and double M: ac-com-mo-date." },
-    { subject:"Mathematics", q:"What is 15% of 200?", opts:["25","30","35","40"], ans:1, exp:"15% × 200 = 0.15 × 200 = 30" },
-    { subject:"Analytical", q:"Which number comes next: 2, 4, 8, 16, __?", opts:["24","30","32","36"], ans:2, exp:"Each number is doubled: 2×2=4, 4×2=8, 8×2=16, 16×2=32." },
-    { subject:"English", q:"The antonym of 'Abundant' is:", opts:["Plentiful","Scarce","Rich","Full"], ans:1, exp:"Abundant means plentiful/in large supply. Its antonym is scarce (in short supply)." },
-    { subject:"Mathematics", q:"Solve: 3x - 7 = 14. x = ?", opts:["5","6","7","8"], ans:2, exp:"3x = 14 + 7 = 21 → x = 21/3 = 7" },
-    { subject:"Analytical", q:"If all cats are animals, and some animals are dogs, then:", opts:["All cats are dogs","Some cats may be dogs","No cats are dogs","Some dogs are cats"], ans:1, exp:"From the given statements, we can only say 'Some cats may be dogs' is possible — but it's not certain. This tests logical reasoning." },
-    { subject:"English", q:"The passive voice of 'She wrote a letter' is:", opts:["A letter was written by her","A letter is written by her","A letter has been written","She had written a letter"], ans:0, exp:"Past tense active → Past tense passive: 'She wrote...' → 'A letter was written by her'" },
-  ],
-  gat: [
-    { subject:"Verbal", q:"BOOK : LIBRARY :: Painting : ?", opts:["Museum","Artist","Canvas","Gallery"], ans:3, exp:"A book is stored/displayed in a library. A painting is stored/displayed in a gallery." },
-    { subject:"Quantitative", q:"If the ratio of boys to girls is 3:2 and there are 30 boys, how many girls?", opts:["15","18","20","25"], ans:2, exp:"If 3 parts = 30 boys, then 1 part = 10. Girls = 2 parts = 20." },
-    { subject:"Analytical", q:"All A are B. All B are C. Therefore:", opts:["All C are A","All A are C","Some C are A","None of these"], ans:1, exp:"Transitive property of logic: All A→B and All B→C, therefore All A→C (all A are C)." },
-    { subject:"Verbal", q:"POVERTY : WEALTH :: Disease : ?", opts:["Hospital","Medicine","Health","Doctor"], ans:2, exp:"Poverty is the opposite of wealth. Disease is the opposite of health." },
-    { subject:"Quantitative", q:"A train travels 360 km in 4 hours. What is its speed?", opts:["80 km/h","90 km/h","100 km/h","120 km/h"], ans:1, exp:"Speed = Distance/Time = 360/4 = 90 km/h" },
-  ],
-};
+const MCQ_QUESTIONS = [
+  // ECAT – Mathematics
+  { id:1, testType:"ECAT", subject:"Mathematics", topic:"Calculus", question:"The derivative of sin(x²) with respect to x is:", options:["2x cos(x²)","cos(x²)","2 sin(x) cos(x)","x cos(x²)"], correctIndex:0, difficulty:"medium", explanation:"Using chain rule: d/dx[sin(u)] = cos(u)·du/dx where u=x², du/dx=2x." },
+  { id:2, testType:"ECAT", subject:"Mathematics", topic:"Algebra", question:"If A and B are two sets such that A⊆B, then A∩B equals:", options:["A","B","A∪B","∅"], correctIndex:0, difficulty:"easy", explanation:"When A is a subset of B, every element of A is in B, so A∩B = A." },
+  { id:3, testType:"ECAT", subject:"Physics", topic:"Mechanics", question:"A body moving with uniform acceleration travels 24 m in the 4th second and 36 m in the 6th second. What is the acceleration?", options:["6 m/s²","5 m/s²","7 m/s²","4 m/s²"], correctIndex:0, difficulty:"hard", explanation:"Using Sₙ = u + a(n-½): 24 = u + 3.5a and 36 = u + 5.5a → 2a = 12 → a = 6 m/s²" },
+  { id:4, testType:"ECAT", subject:"Physics", topic:"Waves", question:"The speed of electromagnetic waves in vacuum is:", options:["3×10⁸ m/s","3×10⁶ m/s","3×10¹⁰ m/s","3×10⁴ m/s"], correctIndex:0, difficulty:"easy", explanation:"The speed of light (and all EM waves) in vacuum is approximately 3×10⁸ m/s." },
+  { id:5, testType:"ECAT", subject:"Chemistry", topic:"Physical Chemistry", question:"The pH of a 0.001 M HCl solution is:", options:["3","11","7","1"], correctIndex:0, difficulty:"easy", explanation:"HCl is a strong acid: [H⁺] = 0.001 = 10⁻³ M → pH = -log(10⁻³) = 3" },
+  { id:6, testType:"ECAT", subject:"English", topic:"Grammar", question:"Choose the word most similar in meaning to 'AMELIORATE':", options:["Improve","Worsen","Maintain","Evaluate"], correctIndex:0, difficulty:"medium", explanation:"Ameliorate means to make something bad better, i.e., to improve it." },
+  { id:7, testType:"ECAT", subject:"Mathematics", topic:"Trigonometry", question:"The value of sin 30° + cos 60° is:", options:["1","0.5","1.5","√3/2"], correctIndex:0, difficulty:"easy", explanation:"sin30° = 0.5 and cos60° = 0.5, so their sum = 1." },
+  // MDCAT
+  { id:8, testType:"MDCAT", subject:"Biology", topic:"Cell Biology", question:"Which organelle is known as the 'powerhouse of the cell'?", options:["Mitochondria","Nucleus","Ribosome","Golgi Apparatus"], correctIndex:0, difficulty:"easy", explanation:"Mitochondria produce ATP through cellular respiration, providing energy for the cell." },
+  { id:9, testType:"MDCAT", subject:"Biology", topic:"Genetics", question:"In a dihybrid cross between AABB and aabb, how many phenotypic classes appear in F2?", options:["4","2","9","16"], correctIndex:0, difficulty:"medium", explanation:"A dihybrid cross (AaBb × AaBb) produces a 9:3:3:1 ratio = 4 phenotypic classes." },
+  { id:10, testType:"MDCAT", subject:"Chemistry", topic:"Organic Chemistry", question:"Which of the following is a functional group of alcohols?", options:["-OH","-COOH","-CHO","-CO-"], correctIndex:0, difficulty:"easy", explanation:"Alcohols contain the hydroxyl (-OH) functional group." },
+  { id:11, testType:"MDCAT", subject:"Physics", topic:"Optics", question:"A convex lens of focal length 20 cm forms an image of an object placed 30 cm from it. The image distance is:", options:["60 cm","30 cm","15 cm","45 cm"], correctIndex:0, difficulty:"medium", explanation:"Using 1/v - 1/u = 1/f: 1/v = 1/20 + 1/30 = 5/60 → v = 60 cm" },
+  { id:12, testType:"MDCAT", subject:"Biology", topic:"Reproduction", question:"Meiosis results in:", options:["4 haploid cells","2 diploid cells","4 diploid cells","2 haploid cells"], correctIndex:0, difficulty:"easy", explanation:"Meiosis involves two divisions producing 4 genetically diverse haploid cells." },
+  { id:13, testType:"MDCAT", subject:"Chemistry", topic:"Biochemistry", question:"Which enzyme breaks down starch into maltose?", options:["Amylase","Lipase","Protease","Nuclease"], correctIndex:0, difficulty:"easy", explanation:"Amylase (salivary and pancreatic) hydrolyzes starch into smaller sugars including maltose." },
+  // NTS
+  { id:14, testType:"NTS", subject:"Verbal", topic:"Analogies", question:"DOCTOR : HOSPITAL :: TEACHER : ?", options:["School","Student","Books","Classroom"], correctIndex:0, difficulty:"easy", explanation:"A doctor works in a hospital; a teacher works in a school." },
+  { id:15, testType:"NTS", subject:"Quantitative", topic:"Arithmetic", question:"If 20% of a number is 40, what is 30% of the same number?", options:["60","80","40","50"], correctIndex:0, difficulty:"easy", explanation:"20% = 40 → number = 200. 30% of 200 = 60." },
+  { id:16, testType:"NTS", subject:"Analytical", topic:"Logic", question:"All roses are flowers. Some flowers fade quickly. Therefore:", options:["Some roses may fade quickly","All roses fade quickly","No roses fade quickly","All flowers are roses"], correctIndex:0, difficulty:"medium", explanation:"This is a syllogism. We can only conclude that SOME roses may fade quickly." },
+  { id:17, testType:"NTS", subject:"Verbal", topic:"Vocabulary", question:"Choose the antonym of 'BENEVOLENT':", options:["Malevolent","Generous","Kind","Charitable"], correctIndex:0, difficulty:"medium", explanation:"Benevolent means kind; its antonym is malevolent, meaning having evil intentions." },
+  { id:18, testType:"NTS", subject:"Quantitative", topic:"Geometry", question:"The area of a circle with diameter 14 cm is (π = 22/7):", options:["154 cm²","196 cm²","88 cm²","616 cm²"], correctIndex:0, difficulty:"easy", explanation:"r = 7, Area = πr² = (22/7) × 49 = 154 cm²" },
+  // GAT
+  { id:19, testType:"GAT", subject:"Verbal", topic:"Reading", question:"Which of the following best describes 'epistemology'?", options:["Study of knowledge","Study of stars","Study of diseases","Study of languages"], correctIndex:0, difficulty:"medium", explanation:"Epistemology is the branch of philosophy concerned with the theory of knowledge." },
+  { id:20, testType:"GAT", subject:"Quantitative", topic:"Statistics", question:"The mean of 5 numbers is 18. If one number is removed and the mean becomes 15, the removed number is:", options:["30","22","25","28"], correctIndex:0, difficulty:"medium", explanation:"Sum = 5×18 = 90. New sum = 4×15 = 60. Removed number = 90-60 = 30." },
+  { id:21, testType:"GAT", subject:"Analytical", topic:"Critical Thinking", question:"A company's profit increased by 20% in Q1 and decreased by 20% in Q2. Net change is:", options:["Decreased by 4%","Unchanged","Increased by 4%","Decreased by 2%"], correctIndex:0, difficulty:"hard", explanation:"If profit = 100: after +20% = 120; after -20% = 96. Net = -4%." },
+  { id:22, testType:"GAT", subject:"Verbal", topic:"Grammar", question:"Identify the sentence with correct subject-verb agreement:", options:["Each of the students has submitted the assignment.","Each of the students have submitted the assignment.","All of the students has submitted the assignment.","None of the students have not submitted."], correctIndex:0, difficulty:"medium", explanation:"'Each' is singular and takes a singular verb: 'has'." },
+  // More ECAT
+  { id:23, testType:"ECAT", subject:"Chemistry", topic:"Organic Chemistry", question:"Which of the following is the IUPAC name of CH₃CH₂OH?", options:["Ethanol","Methanol","Propanol","Ethane"], correctIndex:0, difficulty:"easy", explanation:"CH₃CH₂OH has two carbons and a hydroxyl group: ethanol." },
+  { id:24, testType:"ECAT", subject:"Physics", topic:"Electricity", question:"The SI unit of electric resistance is:", options:["Ohm (Ω)","Ampere (A)","Volt (V)","Watt (W)"], correctIndex:0, difficulty:"easy", explanation:"The SI unit of electrical resistance is the ohm, symbol Ω." },
+  { id:25, testType:"MDCAT", subject:"Chemistry", topic:"Acids & Bases", question:"What is the conjugate base of H₂O?", options:["OH⁻","H₃O⁺","H₂","O²⁻"], correctIndex:0, difficulty:"medium", explanation:"H₂O donates a proton to become OH⁻ (the conjugate base)." },
+  { id:26, testType:"NTS", subject:"Quantitative", topic:"Algebra", question:"If x + y = 10 and x - y = 4, then x equals:", options:["7","6","3","4"], correctIndex:0, difficulty:"easy", explanation:"Adding equations: 2x = 14 → x = 7." },
+  { id:27, testType:"GAT", subject:"Quantitative", topic:"Probability", question:"Two dice are thrown. Probability of getting a sum of 7 is:", options:["1/6","1/12","5/36","1/3"], correctIndex:0, difficulty:"medium", explanation:"Combinations giving 7: (1,6),(2,5),(3,4),(4,3),(5,2),(6,1) = 6 out of 36 = 1/6." },
+  { id:28, testType:"ECAT", subject:"Mathematics", topic:"Matrices", question:"The determinant of matrix [[2,3],[1,4]] is:", options:["5","11","8","14"], correctIndex:0, difficulty:"easy", explanation:"det = 2×4 - 3×1 = 8 - 3 = 5." },
+  { id:29, testType:"MDCAT", subject:"Biology", topic:"Ecology", question:"Which of the following is a primary producer in a food chain?", options:["Green plants","Herbivores","Carnivores","Decomposers"], correctIndex:0, difficulty:"easy", explanation:"Primary producers (green plants/algae) make their own food via photosynthesis." }
+];
 
-// ═══════════════════════════════════
-// NAVIGATION
-// ═══════════════════════════════════
-function showSection(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('section-' + id).classList.add('active');
-  event.target.classList.add('active');
-  if (id === 'universities') renderUnis();
-  if (id === 'alerts') renderAlerts();
-  if (id === 'scholarships') renderScholarships();
+const FORUM_POSTS = [
+  { id:1, title:"What is the merit for UET Lahore CS 2025?", body:"I got 85% in FSc and scored 78 in ECAT. What are my chances for Computer Engineering at UET?", author:"Ahmed_2025", category:"admissions", createdAt:"2025-06-01T10:30:00Z", replyCount:3, likes:12, tags:["UET","ECAT","merit"], replies:[
+    { id:1, postId:1, body:"Based on last year's merit (85.1%), your aggregate should be around 82-83%. It's close but you might get it in later merit lists. Apply and stay hopeful!", author:"Senior_Student", createdAt:"2025-06-01T12:00:00Z", likes:5 },
+    { id:2, postId:1, body:"I got in with similar marks last year! Make sure you apply to multiple universities. Also check COMSATS and FAST as backup.", author:"UET_Student_2024", createdAt:"2025-06-02T09:00:00Z", likes:3 },
+    { id:3, postId:1, body:"Your ECAT score matters a lot. A 78 is decent. The formula is 10% Matric + 40% FSc + 50% ECAT. Calculate your exact aggregate!", author:"MathHelper", createdAt:"2025-06-02T15:00:00Z", likes:7 }
+  ]},
+  { id:2, title:"Is MDCAT harder than ECAT?", body:"I'm planning to apply for both medical and engineering programs. Which test should I prepare more seriously?", author:"Confused_Student", category:"test-prep", createdAt:"2025-06-05T08:00:00Z", replyCount:2, likes:8, tags:["MDCAT","ECAT","test-prep"], replies:[
+    { id:4, postId:2, body:"MDCAT is generally considered harder because it covers 5 subjects (Bio, Chem, Physics, English, Logical Reasoning) with 200 questions in 200 minutes. ECAT is 100 questions focusing more on Maths and Physics.", author:"TestExpert", createdAt:"2025-06-05T11:00:00Z", likes:9 },
+    { id:5, postId:2, body:"It depends on your strengths. If you're strong in Biology, MDCAT might feel more natural. Focus on your FSc topics first — both tests heavily test FSc-level concepts.", author:"MedStudent24", createdAt:"2025-06-06T09:30:00Z", likes:4 }
+  ]},
+  { id:3, title:"HEC Need-Based Scholarship experience?", body:"Has anyone applied for the HEC need-based scholarship? What documents are required and how long does it take?", author:"Nabeela_K", category:"scholarships", createdAt:"2025-05-28T14:00:00Z", replyCount:1, likes:15, tags:["HEC","scholarship","need-based"], replies:[
+    { id:6, postId:3, body:"I received it last year! You need: income certificate, utility bills, CNIC, university enrollment letter, and bank statement. The process takes 2-3 months but the stipend is life-changing. Apply as early as possible!", author:"HEC_Scholar_2024", createdAt:"2025-05-29T10:00:00Z", likes:11 }
+  ]},
+  { id:4, title:"Which city is best for CS students — Lahore or Islamabad?", body:"I got accepted to FAST Lahore and COMSATS Islamabad for Computer Science. Same fee range. Which should I choose for career prospects?", author:"Decision_Help", category:"career", createdAt:"2025-06-10T16:00:00Z", replyCount:2, likes:20, tags:["career","CS","Lahore","Islamabad"], replies:[
+    { id:7, postId:4, body:"Both are great cities for CS! Lahore has a bigger tech industry (Arfa Software Tech Park, Corvit, many startups). Islamabad has more government IT opportunities and multinationals. FAST has a stronger alumni network in the private sector.", author:"TechRecruiter", createdAt:"2025-06-10T18:00:00Z", likes:14 },
+    { id:8, postId:4, body:"I'd pick FAST Lahore. The faculty is excellent and the industry connections are unbeatable. Plus Lahore's social life is much better for students!", author:"FAST_Alumni", createdAt:"2025-06-11T09:00:00Z", likes:8 }
+  ]},
+  { id:5, title:"Domicile certificate — how long does it take?", body:"I need a domicile certificate for university admission. Applied at Union Council a week ago. Is it supposed to take this long?", author:"Worried_Applicant", category:"admissions", createdAt:"2025-06-12T11:00:00Z", replyCount:1, likes:6, tags:["documents","domicile","admissions"], replies:[
+    { id:9, postId:5, body:"Domicile at UC typically takes 2-4 weeks. If it's taking longer, follow up in person with your application receipt. Also you can get an interim certificate while waiting. Start this process EARLY — many students miss deadlines over this!", author:"AdmissionsHelper", createdAt:"2025-06-12T13:00:00Z", likes:8 }
+  ]},
+];
+
+const DEADLINES = [
+  { id:1, universityId:1, universityName:"UET Lahore", city:"Lahore", program:"All Engineering Programs", deadline:"2025-09-15", type:"application", notes:"Apply via UET website. Original documents required." },
+  { id:2, universityId:2, universityName:"King Edward Medical University", city:"Lahore", program:"MBBS", deadline:"2025-09-01", type:"application", notes:"MDCAT score mandatory. Apply via PMC portal." },
+  { id:3, universityId:4, universityName:"NUST", city:"Islamabad", program:"All Programs", deadline:"2025-09-20", type:"application", notes:"NET exam is prerequisite. Apply at nust.edu.pk" },
+  { id:4, universityId:6, universityName:"University of Karachi", city:"Karachi", program:"Computer Science, Business", deadline:"2025-08-31", type:"application", notes:"Prospectus available from admin office." },
+  { id:5, universityId:17, universityName:"University of Punjab", city:"Lahore", program:"All Programs", deadline:"2025-08-25", type:"application", notes:"Apply via PU admissions portal." },
+  { id:6, universityId:3, universityName:"LUMS", city:"Lahore", program:"All Programs", deadline:"2025-01-15", type:"test", notes:"LSAT/SAT/ACT scores required for some programs." },
+  { id:7, universityId:14, universityName:"FAST-NUCES", city:"Lahore", program:"CS, SE, EE", deadline:"2025-08-10", type:"test", notes:"NU Entry Test date. Check nu.edu.pk for schedule." },
+  { id:8, universityId:1, universityName:"UET Lahore", city:"Lahore", program:"All Engineering Programs", deadline:"2025-10-20", type:"result", notes:"Merit list display. Check uet.edu.pk" },
+  { id:9, universityId:4, universityName:"NUST", city:"Islamabad", program:"All Programs", deadline:"2025-10-15", type:"result", notes:"Final merit list. Check nust.edu.pk" },
+  { id:10, universityId:2, universityName:"KEMU", city:"Lahore", program:"MBBS", deadline:"2025-11-01", type:"enrollment", notes:"Enrollment and fee deposit deadline." },
+  { id:11, universityId:4, universityName:"NUST", city:"Islamabad", program:"All Programs", deadline:"2025-11-10", type:"enrollment", notes:"Enrollment deadline for selected candidates." },
+  { id:12, universityId:17, universityName:"University of Punjab", city:"Lahore", program:"All Programs", deadline:"2025-09-30", type:"result", notes:"1st merit list announcement." },
+  { id:13, universityId:8, universityName:"COMSATS", city:"Islamabad", program:"CS, SE, EE, Business", deadline:"2025-09-05", type:"application", notes:"Apply at comsats.edu.pk" },
+  { id:14, universityId:19, universityName:"GIKI", city:"Topi", program:"Engineering Programs", deadline:"2025-08-20", type:"test", notes:"GIKI Entry Test. Check giki.edu.pk for dates." },
+];
+
+const DOCUMENTS = [
+  { id:1, name:"Matric Certificate", required:true, description:"Original Matric (10th grade) passing certificate from BISE", notes:"Along with attested photocopies", category:"academic" },
+  { id:2, name:"FSc Marksheet", required:true, description:"Intermediate (12th grade) marksheet or result card from BISE", notes:"Both parts required", category:"academic" },
+  { id:3, name:"Detailed Marks Certificate", required:true, description:"DMC from BISE for both Matric and FSc", notes:"Apply well in advance — takes 2-4 weeks", category:"academic" },
+  { id:4, name:"Entry Test Result Card", required:true, description:"ECAT/MDCAT/NTS/GAT original score card", notes:"Check which tests your university accepts", category:"academic" },
+  { id:5, name:"Migration Certificate", required:false, description:"Required if migrating from another board or institution", notes:"Apply to your board well in advance", category:"academic" },
+  { id:6, name:"CNIC / B-Form", required:true, description:"National Identity Card or B-Form for students under 18", notes:"Both sides attested", category:"identity" },
+  { id:7, name:"Domicile Certificate", required:true, description:"Domicile certificate from local Union Council or NADRA", notes:"Province-specific domicile for quota purposes", category:"identity" },
+  { id:8, name:"Passport-size Photographs", required:true, description:"Recent passport-size photos with white background", notes:"Usually 4-6 photos required", category:"identity" },
+  { id:9, name:"Character Certificate", required:true, description:"Character certificate from previous institution's principal", notes:"On official letterhead with signature and stamp", category:"other" },
+  { id:10, name:"Bank Draft / Fee Challan", required:true, description:"Application fee payment proof", notes:"Check the university website for current fee amount", category:"financial" },
+  { id:11, name:"Income Certificate", required:false, description:"Required for need-based scholarships and some public universities", notes:"From employer or UC on official letterhead", category:"financial" },
+];
+
+const QUIZ_QUESTIONS = [
+  { id:1, question:"Which activity do you enjoy most?", options:["Solving math problems","Helping people","Drawing or designing","Reading about how things work"], category:"interest" },
+  { id:2, question:"If you had free time, you would most likely:", options:["Run experiments or build something","Talk with friends and listen to their problems","Write stories or create art","Research a topic you're curious about"], category:"behavior" },
+  { id:3, question:"Which subject do you find most interesting?", options:["Mathematics & Physics","Biology & Chemistry","Computer Science","Business & Economics"], category:"academic" },
+  { id:4, question:"What motivates you the most?", options:["Making discoveries and innovations","Making a difference in people's lives","Expressing ideas creatively","Building a successful career"], category:"motivation" },
+  { id:5, question:"How do you prefer to work?", options:["Independently with technical problems","In a team helping others","Creatively without strict rules","Strategically with clear goals"], category:"style" },
+  { id:6, question:"Which would you be proudest to say?", options:["I built a bridge that thousands cross daily","I saved a patient's life","I created software used by millions","I led a company that employs hundreds"], category:"aspiration" },
+  { id:7, question:"How do you approach problems?", options:["Analyze data and find patterns","Consider the human impact first","Think of creative alternative solutions","Plan strategically for best outcome"], category:"thinking" },
+  { id:8, question:"Which environment do you prefer?", options:["Lab or workshop","Hospital or clinic","Office or studio","Boardroom or field"], category:"environment" }
+];
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let currentQuizQ = 0;
+const quizAnswers = {};
+let currentTestType = "ECAT";
+let mockTestQuestions = [];
+let mockTestAnswers = {};
+let mockTestTimer = null;
+let mockTestSeconds = 0;
+let mockTestSubmitted = false;
+let forumPosts = JSON.parse(JSON.stringify(FORUM_POSTS));
+let currentForumCat = "";
+let checkedDocs = {};
+
+// ─── NAV ─────────────────────────────────────────────────────────────────────
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('nav-'+id);
+  if(btn) btn.classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='universities') renderUniversities();
+  if(id==='scholarships') renderScholarships();
+  if(id==='forum') renderForum();
+  if(id==='calendar') renderCalendar();
+  if(id==='documents') renderDocuments();
+  if(id==='tests') initTests();
+  if(id==='career') initQuiz();
 }
 
-// ═══════════════════════════════════
-// CAREER COUNSELLING
-// ═══════════════════════════════════
-let selectedPath = '';
+// ─── CAREER QUIZ ──────────────────────────────────────────────────────────────
+function switchCareerTab(tab, el) {
+  document.querySelectorAll('.pill-tab').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('career-quiz-tab').style.display = tab==='quiz'?'block':'none';
+  document.getElementById('career-suggest-tab').style.display = tab==='suggest'?'block':'none';
+}
 
-function selectPath(el, path) {
-  document.querySelectorAll('.career-path').forEach(c => c.classList.remove('selected'));
+function initQuiz() {
+  currentQuizQ = 0;
+  Object.keys(quizAnswers).forEach(k=>delete quizAnswers[k]);
+  document.getElementById('quiz-container').style.display = 'block';
+  document.getElementById('quiz-result').style.display = 'none';
+  renderQuizQ();
+}
+
+function renderQuizQ() {
+  const q = QUIZ_QUESTIONS[currentQuizQ];
+  const pct = ((currentQuizQ)/QUIZ_QUESTIONS.length)*100;
+  document.getElementById('quiz-progress-fill').style.width = pct+'%';
+  const sel = quizAnswers[q.id];
+  document.getElementById('quiz-content').innerHTML = `
+    <div style="color:var(--ink-soft);font-size:.8rem;margin-bottom:8px">Question ${currentQuizQ+1} of ${QUIZ_QUESTIONS.length}</div>
+    <div class="quiz-q">${q.question}</div>
+    <div class="quiz-options">
+      ${q.options.map((o,i)=>`
+        <div class="quiz-opt${sel===o?' selected':''}" onclick="selectQuizOpt(${q.id},'${o.replace(/'/g,"\\'")}',this)">
+          <div class="quiz-opt-letter">${'ABCD'[i]}</div>${o}
+        </div>`).join('')}
+    </div>`;
+  document.getElementById('quiz-prev-btn').disabled = currentQuizQ===0;
+  document.getElementById('quiz-next-btn').textContent = currentQuizQ===QUIZ_QUESTIONS.length-1?'See Results →':'Next →';
+}
+
+function selectQuizOpt(qid, answer, el) {
+  quizAnswers[qid] = answer;
+  el.closest('.quiz-options').querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('selected'));
   el.classList.add('selected');
-  selectedPath = path;
+  el.querySelector('.quiz-opt-letter').style.background = 'var(--green)';
+  el.querySelector('.quiz-opt-letter').style.color = 'var(--white)';
 }
 
-async function getAIAdvice() {
-  const matric = document.getElementById('matric-pct').value;
-  const fsc = document.getElementById('fsc-pct').value;
-  const city = document.getElementById('pref-city').value;
-  const budget = document.getElementById('budget').value;
-  const goals = document.getElementById('student-goals').value;
-
-  const resultEl = document.getElementById('ai-result');
-  resultEl.className = 'loading';
-  resultEl.textContent = 'Getting personalized advice for you';
-  resultEl.style.display = 'block';
-
-  const prompt = `You are a professional career counsellor in Pakistan helping an FSc student.
-
-Student Profile:
-- Interested in: ${selectedPath || 'Not specified (suggest based on marks)'}
-- Matric: ${matric || 'Not provided'}%
-- FSc: ${fsc || 'Not provided'}%
-- Preferred City: ${city || 'Any'}
-- Budget: ${budget || 'Not specified'}
-- Goals/Interests: ${goals || 'Not specified'}
-
-Give a detailed, practical career counselling response in English. Include:
-1. **Recommended Programs** — Top 2-3 programs that fit the student's profile
-2. **Best Universities** — Specific HEC-recognized universities in Pakistan with their entry tests
-3. **Eligibility Assessment** — Based on marks, realistic chances at different university tiers
-4. **Entry Test Advice** — Which test to prepare for (ECAT/MDCAT/NTS) and key topics
-5. **Timeline** — What to do in the next 3-6 months
-6. **Scholarship Opportunities** — Relevant scholarships available
-
-Be specific, encouraging, and practical. Use bullet points and clear headings. Keep the response well-structured.`;
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    const data = await res.json();
-    const text = data.content?.map(b => b.text || '').join('') || 'Sorry, could not get advice. Please try again.';
-    resultEl.textContent = text;
-    resultEl.className = 'done';
-  } catch(e) {
-    resultEl.textContent = 'Network error. Please check your connection and try again.';
-    resultEl.className = 'done';
-  }
+function quizNext() {
+  const q = QUIZ_QUESTIONS[currentQuizQ];
+  if(!quizAnswers[q.id]) { alert('Please select an option to continue.'); return; }
+  if(currentQuizQ===QUIZ_QUESTIONS.length-1) { showQuizResult(); return; }
+  currentQuizQ++;
+  renderQuizQ();
 }
 
-// ═══════════════════════════════════
-// UNIVERSITIES
-// ═══════════════════════════════════
-function renderUnis() {
-  const city = document.getElementById('f-city')?.value || '';
-  const type = document.getElementById('f-type')?.value || '';
-  const prog = document.getElementById('f-prog')?.value || '';
-  const fee = document.getElementById('f-fee')?.value || '';
+function quizPrev() { if(currentQuizQ>0){currentQuizQ--;renderQuizQ();} }
 
-  const filtered = UNIVERSITIES.filter(u => {
-    if (city && u.city !== city) return false;
-    if (type && u.type !== type) return false;
-    if (prog && !u.programs.includes(prog)) return false;
-    if (fee === 'low' && u.fee_cat !== 'low') return false;
-    if (fee === 'mid' && u.fee_cat !== 'mid') return false;
-    if (fee === 'high' && u.fee_cat !== 'high') return false;
-    return true;
+function showQuizResult() {
+  const scores = {engineering:0,medical:0,cs:0,business:0};
+  const indexMap = [
+    ["engineering","medical","business","cs"],
+    ["engineering","medical","business","cs"],
+    ["engineering","medical","cs","business"],
+    ["engineering","medical","cs","business"],
+    ["engineering","medical","business","cs"],
+    ["engineering","medical","cs","business"],
+    ["engineering","medical","cs","business"],
+    ["engineering","medical","business","cs"],
+  ];
+  QUIZ_QUESTIONS.forEach((q,idx)=>{
+    const ans = quizAnswers[q.id];
+    const ansIdx = q.options.indexOf(ans);
+    if(ansIdx>=0 && indexMap[idx]) {
+      const field = indexMap[idx][ansIdx];
+      if(field && field in scores) scores[field]++;
+    }
   });
-
-  const tbody = document.getElementById('uni-body');
-  tbody.innerHTML = filtered.map(u => `
-    <tr>
-      <td>
-        <div class="uni-name">${u.name}</div>
-        <div class="uni-city">📍 ${u.city}</div>
-      </td>
-      <td>${u.programs.map(p => `<span class="badge badge-green" style="margin:2px;">${p}</span>`).join('')}</td>
-      <td><span class="badge badge-navy">${u.test}</span></td>
-      <td>Rs. ${u.fee}/yr</td>
-      <td><strong>${u.merit_last}%</strong></td>
-      <td><span class="badge ${u.type==='Public'?'badge-gold':'badge-red'}">${u.type}</span></td>
-    </tr>
-  `).join('');
-  document.getElementById('uni-count').textContent = filtered.length;
-}
-
-function filterUnis() { renderUnis(); }
-
-// ═══════════════════════════════════
-// MERIT CALCULATOR
-// ═══════════════════════════════════
-let formulaWeights = { matric: 0.10, fsc: 0.40, test: 0.50, testMax: 400 };
-
-const FORMULAS = {
-  ecat: { matric:0.10, fsc:0.40, test:0.50, testMax:400, label:'ECAT Formula', desc:'Matric 10% + FSc 40% + ECAT 50%', unis:'UET Lahore, NUST, UET Taxila, NED, MUET', testName:'ECAT Score (out of 400)' },
-  mdcat: { matric:0.10, fsc:0.40, test:0.50, testMax:200, label:'MDCAT Formula', desc:'Matric 10% + FSc 40% + MDCAT 50%', unis:'KEMU, AIMC, Nishtar, Rawalpindi Medical', testName:'MDCAT Score (out of 200)' },
-  nts: { matric:0.15, fsc:0.35, test:0.50, testMax:100, label:'NTS/NAT Formula', desc:'Matric 15% + FSc 35% + NTS NAT 50%', unis:'COMSATS, Bahria, Air University, PMAS', testName:'NTS NAT Score (out of 100)' },
-  custom: { matric:0.10, fsc:0.40, test:0.50, testMax:100, label:'Custom Formula', desc:'Adjust weights as needed', unis:'Enter your own university weights', testName:'Test Score' },
-};
-
-function selectFormula(el, key) {
-  document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  const f = FORMULAS[key];
-  formulaWeights = f;
-  document.getElementById('formula-text').innerHTML = `<strong>${f.label}:</strong> Matric ${f.matric*100}% + FSc ${f.fsc*100}% + Test ${f.test*100}%<br>Used by: ${f.unis}`;
-  document.getElementById('test-label').textContent = f.testName;
-  document.getElementById('m-test-total').value = f.testMax;
-}
-
-function calcMerit() {
-  const matric = parseFloat(document.getElementById('m-matric').value) || 0;
-  const fsc = parseFloat(document.getElementById('m-fsc').value) || 0;
-  const test = parseFloat(document.getElementById('m-test').value) || 0;
-  const testMax = parseFloat(document.getElementById('m-test-total').value) || 400;
-
-  const matricPct = (matric/1100)*100;
-  const fscPct = (fsc/1100)*100;
-  const testPct = (test/testMax)*100;
-
-  const agg = (matricPct * formulaWeights.matric) + (fscPct * formulaWeights.fsc) + (testPct * formulaWeights.test);
-
-  const resultEl = document.getElementById('merit-result');
-  document.getElementById('merit-score').textContent = agg.toFixed(2) + '%';
-
-  const chances = UNIVERSITIES.filter(u => u.merit_last !== '—').map(u => ({
-    name: u.name,
-    merit: parseFloat(u.merit_last),
-    chance: agg >= parseFloat(u.merit_last) + 2 ? 'High' :
-            agg >= parseFloat(u.merit_last) - 2 ? 'Borderline' :
-            agg >= parseFloat(u.merit_last) - 5 ? 'Low' : 'Very Low'
-  })).sort((a,b) => b.merit - a.merit).slice(0, 8);
-
-  document.getElementById('merit-chances').innerHTML = `
-    <div style="font-weight:700;margin-bottom:10px;font-size:14px;">University Chances:</div>
-    ${chances.map(c => `
-      <div class="chance-item">
-        <div style="flex:1">
-          <div style="font-size:13px;font-weight:600;">${c.name}</div>
-          <div style="font-size:11px;color:var(--muted);">Last Merit: ${c.merit}%</div>
+  const sorted = Object.entries(scores).sort(([,a],[,b])=>b-a);
+  const top = sorted[0][0];
+  const personMap = {
+    engineering:{type:"The Builder 🔧",desc:"You have a natural aptitude for mathematics and love solving complex technical problems. You thrive when creating systems and structures that solve real-world challenges."},
+    medical:{type:"The Healer ❤️",desc:"You are empathetic, detail-oriented, and passionate about improving human wellbeing. You have the patience and dedication needed for the medical profession."},
+    cs:{type:"The Innovator 💻",desc:"You love technology, logical thinking, and creating things from code. You naturally adapt to new technologies and enjoy building digital solutions."},
+    business:{type:"The Leader 📈",desc:"You are strategic, people-oriented, and driven by results. You have natural leadership abilities and enjoy creating value through smart decision-making."}
+  };
+  const fieldMap = {
+    engineering:{field:"Engineering",programs:["Electrical Engineering","Civil Engineering","Mechanical Engineering","Software Engineering"]},
+    medical:{field:"Medical Sciences",programs:["MBBS","BDS","Pharmacy","Medical Technology"]},
+    cs:{field:"Computer Science",programs:["Computer Science","Software Engineering","IT","Artificial Intelligence"]},
+    business:{field:"Business & Management",programs:["BBA","Commerce","Economics","Finance"]}
+  };
+  const total = QUIZ_QUESTIONS.length;
+  document.getElementById('quiz-container').style.display='none';
+  document.getElementById('quiz-result').style.display='block';
+  document.getElementById('quiz-result').innerHTML = `
+    <div class="personality-header">
+      <div style="font-size:.8rem;opacity:.7;margin-bottom:4px">Your Personality Type</div>
+      <div class="personality-type">${personMap[top].type}</div>
+      <p style="opacity:.85;font-size:.9rem;max-width:500px;margin:8px auto 0">${personMap[top].desc}</p>
+    </div>
+    <h3 style="font-family:'Syne',sans-serif;margin-bottom:14px">Career Matches</h3>
+    ${sorted.map(([field,score])=>{
+      const pct = Math.min(Math.round((score/total)*100),99);
+      const fi = fieldMap[field];
+      return `<div class="match-card">
+        <div class="flex-between">
+          <strong style="font-family:'Syne',sans-serif">${fi.field}</strong>
+          <div class="score-ring" style="width:44px;height:44px;background:var(--green-pale);color:var(--green);font-size:.9rem">${pct}%</div>
         </div>
-        <span class="badge ${c.chance==='High'?'badge-green':c.chance==='Borderline'?'badge-gold':'badge-red'}">${c.chance}</span>
+        <div class="match-bar-wrap"><div class="match-bar" style="width:${pct}%"></div></div>
+        <div style="font-size:.82rem;color:var(--ink-soft);margin-top:8px">Recommended programs: <strong>${fi.programs.slice(0,3).join(', ')}</strong></div>
+      </div>`;
+    }).join('')}
+    <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-green" onclick="initQuiz()">🔄 Retake Quiz</button>
+      <button class="btn" style="background:var(--surface);border:1.5px solid var(--border);color:var(--ink)" onclick="showPage('merit')">📊 Calculate My Merit</button>
+    </div>`;
+}
+
+// ─── CAREER SUGGEST ───────────────────────────────────────────────────────────
+function getSuggestions() {
+  const matric = parseFloat(document.getElementById('s-matric').value)||0;
+  const fsc = parseFloat(document.getElementById('s-fsc').value)||0;
+  const interests = document.getElementById('s-interests').value.split(',').map(s=>s.trim()).filter(Boolean);
+  if(!matric||!fsc) { alert('Please enter your Matric and FSc percentages.'); return; }
+  const avg = (matric+fsc)/2;
+  const li = interests.map(i=>i.toLowerCase());
+  const fields = [
+    {field:"Engineering",score:80+(avg>80?15:0)+(li.some(i=>["math","physics","technology","build","construct"].includes(i))?10:0),icon:"🔧",programs:["Electrical Engineering","Civil Engineering","Mechanical Engineering","Software Engineering"],reasoning:"Your academic performance and interest in technical subjects show strong compatibility with Engineering programs."},
+    {field:"Medical Sciences",score:75+(avg>85?15:0)+(li.some(i=>["biology","health","doctor","medicine","chemistry"].includes(i))?10:0),icon:"🏥",programs:["MBBS","BDS","Pharmacy","Medical Technology"],reasoning:"Your profile shows good alignment with medical sciences, especially if you enjoy helping others and studying biology."},
+    {field:"Computer Science",score:78+(avg>75?10:0)+(li.some(i=>["computer","coding","games","tech","software","it"].includes(i))?12:0),icon:"💻",programs:["Computer Science","Software Engineering","IT","AI & Data Science"],reasoning:"The CS field is highly rewarding and Pakistan's tech industry is booming. Your profile shows good potential."},
+    {field:"Business & Management",score:72+(li.some(i=>["business","money","leadership","marketing","management","finance"].includes(i))?15:0),icon:"📊",programs:["BBA","Commerce","Economics","Finance"],reasoning:"Business programs offer diverse career paths in Pakistan's growing economy, especially with leadership interests."},
+  ].sort((a,b)=>b.score-a.score);
+  document.getElementById('suggest-result').innerHTML = `
+    <div style="margin-top:24px">
+      <div class="form-card" style="background:var(--green-pale);border-color:var(--green);margin-bottom:20px">
+        <strong>📋 Profile Summary</strong><br>
+        <span style="font-size:.9rem;color:var(--ink-mid)">Matric ${matric}% · FSc ${fsc}% · Avg ${avg.toFixed(1)}%${interests.length?` · Interests: ${interests.join(', ')}`:''}</span>
       </div>
-    `).join('')}
-  `;
-  resultEl.style.display = 'block';
-}
-
-// ═══════════════════════════════════
-// TEST PREP / QUIZ
-// ═══════════════════════════════════
-let currentTest = 'ecat';
-let quizQs = [];
-let qIdx = 0;
-let qScore = 0;
-let timerInterval;
-
-const TEST_INFO = {
-  ecat: { title:'⚙️ ECAT — Engineering College Admission Test', desc:'Conducted by UET Lahore. Required for all government engineering universities in Punjab.', tags:['400 Total Marks','Physics, Chemistry, Maths','MCQ Format'], dist:[{name:'Mathematics',pct:36,color:'var(--green)'},{name:'Physics',pct:36,color:'#3b82f6'},{name:'Chemistry',pct:28,color:'var(--gold)'}] },
-  mdcat: { title:'🏥 MDCAT — Medical & Dental College Admission Test', desc:'Conducted by PMC (Pakistan Medical Commission). Required for MBBS and BDS admissions across Pakistan.', tags:['200 Total Marks','Biology, Chemistry, Physics, English','MCQ Format'], dist:[{name:'Biology',pct:40,color:'var(--green)'},{name:'Chemistry',pct:30,color:'var(--gold)'},{name:'Physics',pct:20,color:'#3b82f6'},{name:'English',pct:10,color:'#ec4899'}] },
-  nts: { title:'📝 NTS NAT — National Aptitude Test', desc:'Conducted by National Testing Service. Required by many universities including COMSATS, Bahria, and Air University.', tags:['100 Total Marks','English, Maths, Analytical','Standard MCQ'], dist:[{name:'English',pct:40,color:'#3b82f6'},{name:'Mathematics',pct:30,color:'var(--green)'},{name:'Analytical',pct:30,color:'var(--gold)'}] },
-  gat: { title:'🎓 GAT — Graduate Assessment Test', desc:'Conducted by NTS for postgraduate admissions. Required by HEC for MS/PhD programs.', tags:['100 Total Marks','Verbal, Quantitative, Analytical','Standard MCQ'], dist:[{name:'Verbal',pct:40,color:'#3b82f6'},{name:'Quantitative',pct:30,color:'var(--green)'},{name:'Analytical',pct:30,color:'var(--gold)'}] },
-};
-
-function selectTest(el, key) {
-  document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  currentTest = key;
-  const info = TEST_INFO[key];
-  document.getElementById('test-info').innerHTML = `
-    <div class="grid-2">
-      <div>
-        <div class="card-title">${info.title}</div>
-        <p style="font-size:13px;color:var(--muted);">${info.desc}</p>
-        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
-          ${info.tags.map(t => `<span class="badge badge-navy">${t}</span>`).join('')}
-        </div>
-      </div>
-      <div>
-        <div style="font-size:13px;font-weight:600;margin-bottom:10px;">Subject Distribution</div>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          ${info.dist.map(d => `
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <span style="font-size:13px;">${d.name}</span>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:80px;height:6px;background:#e2e8f0;border-radius:3px;">
-                  <div style="width:${d.pct}%;height:100%;background:${d.color};border-radius:3px;"></div>
-                </div>
-                <span style="font-size:12px;color:var(--muted);">${d.pct}%</span>
-              </div>
-            </div>
-          `).join('')}
-        </div>
+      <h3 style="font-family:'Syne',sans-serif;margin-bottom:14px">Your Career Recommendations</h3>
+      ${fields.map((f,i)=>`
+        <div class="match-card" style="${i===0?'border-color:var(--green);background:var(--green-pale)':''}">
+          <div class="flex-between" style="margin-bottom:8px">
+            <div><span style="font-size:1.3rem">${f.icon}</span> <strong style="font-family:'Syne',sans-serif">${f.field}</strong> ${i===0?'<span class="badge badge-green">Best Match</span>':''}</div>
+            <div style="font-family:\'Syne\',sans-serif;font-weight:800;font-size:1.1rem;color:var(--green)">${Math.min(f.score,99)}%</div>
+          </div>
+          <div class="match-bar-wrap"><div class="match-bar" style="width:${Math.min(f.score,99)}%"></div></div>
+          <p style="font-size:.85rem;color:var(--ink-mid);margin-top:8px">${f.reasoning}</p>
+          <div style="font-size:.8rem;color:var(--ink-soft);margin-top:6px">Programs: <strong>${f.programs.join(', ')}</strong></div>
+        </div>`).join('')}
+      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-green" onclick="showPage('merit')">📊 Calculate Merit</button>
+        <button class="btn" style="background:var(--surface);border:1.5px solid var(--border);color:var(--ink)" onclick="showPage('universities')">🏛️ Find Universities</button>
       </div>
     </div>`;
-  // reset quiz
-  document.getElementById('quiz-start').style.display = 'block';
-  document.getElementById('quiz-running').style.display = 'none';
-  document.getElementById('quiz-done').style.display = 'none';
 }
 
-function startQuiz() {
-  const count = parseInt(document.getElementById('q-count').value);
-  const pool = QUIZ_QUESTIONS[currentTest] || QUIZ_QUESTIONS.ecat;
-  quizQs = [...pool].sort(() => Math.random()-0.5).slice(0, Math.min(count, pool.length));
-  qIdx = 0; qScore = 0;
-  document.getElementById('quiz-start').style.display = 'none';
-  document.getElementById('quiz-done').style.display = 'none';
-  document.getElementById('quiz-running').style.display = 'block';
-  document.getElementById('q-total').textContent = quizQs.length;
-  showQuestion();
+// ─── UNIVERSITIES ─────────────────────────────────────────────────────────────
+function renderUniversities() {
+  filterUniversities();
 }
 
-function showQuestion() {
-  const q = quizQs[qIdx];
-  document.getElementById('q-num').textContent = qIdx + 1;
-  document.getElementById('q-progress').style.width = ((qIdx+1)/quizQs.length*100) + '%';
-  document.getElementById('q-subject').textContent = q.subject;
-  document.getElementById('q-question').textContent = q.q;
-  document.getElementById('q-explanation').style.display = 'none';
-  document.getElementById('q-next').style.display = 'none';
-
-  const opts = document.getElementById('q-options');
-  opts.innerHTML = q.opts.map((o,i) => `
-    <div class="quiz-opt" onclick="selectOpt(this,${i})">${String.fromCharCode(65+i)}. ${o}</div>
-  `).join('');
-
-  // timer
-  let t = 45;
-  document.getElementById('q-timer').textContent = t;
-  document.getElementById('timer-fill').style.width = '100%';
-  clearInterval(timerInterval);
-  timerInterval = setInterval(() => {
-    t--;
-    document.getElementById('q-timer').textContent = t;
-    document.getElementById('timer-fill').style.width = (t/45*100) + '%';
-    if (t <= 0) { clearInterval(timerInterval); autoFail(); }
-  }, 1000);
-}
-
-function selectOpt(el, idx) {
-  clearInterval(timerInterval);
-  const q = quizQs[qIdx];
-  document.querySelectorAll('.quiz-opt').forEach(o => o.classList.add('disabled'));
-  if (idx === q.ans) { el.classList.add('correct'); qScore++; }
-  else { el.classList.add('wrong'); document.querySelectorAll('.quiz-opt')[q.ans].classList.add('correct'); }
-  const expEl = document.getElementById('q-explanation');
-  expEl.innerHTML = `💡 <strong>Explanation:</strong> ${q.exp}`;
-  expEl.style.display = 'block';
-  document.getElementById('q-next').style.display = 'inline-flex';
-}
-
-function autoFail() {
-  const q = quizQs[qIdx];
-  document.querySelectorAll('.quiz-opt').forEach((o,i) => {
-    o.classList.add('disabled');
-    if (i === q.ans) o.classList.add('correct');
+function filterUniversities() {
+  const search = (document.getElementById('uni-search').value||'').toLowerCase();
+  const city = document.getElementById('uni-city').value;
+  const type = document.getElementById('uni-type').value;
+  const program = document.getElementById('uni-program').value.toLowerCase();
+  let unis = UNIVERSITIES.filter(u=>{
+    if(search && !u.name.toLowerCase().includes(search) && !u.city.toLowerCase().includes(search) && !(u.shortName||'').toLowerCase().includes(search)) return false;
+    if(city && u.city!==city) return false;
+    if(type && u.type!==type) return false;
+    if(program && !u.programs.some(p=>p.toLowerCase().includes(program))) return false;
+    return true;
   });
-  const expEl = document.getElementById('q-explanation');
-  expEl.innerHTML = `⏱️ <strong>Time's up!</strong> ${q.exp}`;
-  expEl.style.display = 'block';
-  document.getElementById('q-next').style.display = 'inline-flex';
+  const grid = document.getElementById('unis-grid');
+  if(!unis.length){grid.innerHTML='<div class="empty"><div class="empty-icon">🏛️</div><p>No universities found. Try adjusting your filters.</p></div>';return;}
+  grid.innerHTML = unis.map(u=>`
+    <div class="uni-card" onclick="showUniModal(${u.id})">
+      <div class="flex-between" style="margin-bottom:6px">
+        <div class="uni-name">${u.name}</div>
+        ${u.ranking?`<span class="badge badge-gold">#${u.ranking}</span>`:''}
+      </div>
+      <div class="uni-meta">
+        <span>📍 ${u.city}</span>
+        <span class="${u.type==='public'?'badge badge-green':'badge badge-blue'}">${u.type}</span>
+        ${u.annualFeeMin?`<span>💰 PKR ${(u.annualFeeMin/1000).toFixed(0)}K–${(u.annualFeeMax/1000).toFixed(0)}K/yr</span>`:''}
+        ${u.established?`<span>Est. ${u.established}</span>`:''}
+      </div>
+      ${u.hecRating?`<span class="badge badge-gray">HEC ${u.hecRating}</span>`:''}
+      <div class="uni-programs">
+        ${u.programs.slice(0,4).map(p=>`<span class="prog-tag">${p}</span>`).join('')}
+        ${u.programs.length>4?`<span class="prog-tag">+${u.programs.length-4} more</span>`:''}
+      </div>
+    </div>`).join('');
 }
 
-function nextQuestion() {
-  qIdx++;
-  if (qIdx >= quizQs.length) {
-    document.getElementById('quiz-running').style.display = 'none';
-    document.getElementById('quiz-done').style.display = 'block';
-    document.getElementById('final-score').textContent = qScore + '/' + quizQs.length;
-    const pct = Math.round(qScore/quizQs.length*100);
-    const feedback = pct >= 80 ? '🌟 Excellent! You are well prepared.' :
-                     pct >= 60 ? '👍 Good effort! Keep practicing.' :
-                     pct >= 40 ? '📚 Needs improvement. Review weak topics.' :
-                     '💪 Keep going! Consistent practice is key.';
-    document.getElementById('score-feedback').innerHTML = `<div class="badge ${pct>=80?'badge-green':pct>=60?'badge-gold':'badge-red'}" style="font-size:14px;padding:8px 16px;">${feedback}</div>`;
-  } else {
-    showQuestion();
+function showUniModal(id) {
+  const u = UNIVERSITIES.find(x=>x.id===id);
+  if(!u) return;
+  const criteria = ADMISSION_CRITERIA.filter(c=>c.universityId===id);
+  const modal = document.getElementById('uni-modal-content');
+  modal.innerHTML = `
+    <div class="modal-header">
+      <div>
+        <h2 style="font-family:'Syne',sans-serif;font-size:1.3rem">${u.name}</h2>
+        <div style="color:var(--ink-soft);font-size:.88rem;margin-top:4px">${u.city}, ${u.province} · Est. ${u.established||'N/A'}</div>
+      </div>
+      <button class="modal-close" onclick="closeUniModal()">✕</button>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+      <span class="${u.type==='public'?'badge badge-green':'badge badge-blue'}">${u.type}</span>
+      ${u.ranking?`<span class="badge badge-gold">Rank #${u.ranking}</span>`:''}
+      ${u.hecRating?`<span class="badge badge-gray">HEC ${u.hecRating}</span>`:''}
+    </div>
+    ${u.description?`<p style="color:var(--ink-mid);font-size:.9rem;margin-bottom:16px">${u.description}</p>`:''}
+    <div class="divider"></div>
+    <div class="two-col" style="margin-bottom:16px">
+      ${u.annualFeeMin?`<div><div style="font-size:.78rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;font-weight:700">Annual Fee</div><div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-top:4px">PKR ${u.annualFeeMin.toLocaleString()} – ${u.annualFeeMax.toLocaleString()}</div></div>`:''}
+      ${u.website?`<div><div style="font-size:.78rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;font-weight:700">Website</div><div style="margin-top:4px"><a href="${u.website}" target="_blank">${u.website}</a></div></div>`:''}
+    </div>
+    <div class="modal-section">
+      <h4>Programs Offered</h4>
+      <div class="uni-programs">${u.programs.map(p=>`<span class="prog-tag">${p}</span>`).join('')}</div>
+    </div>
+    ${criteria.length?`
+    <div class="modal-section">
+      <h4>Admission Criteria</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Program</th><th>Matric</th><th>FSc</th><th>Test</th><th>Test Type</th><th>Last Merit</th><th>Seats</th></tr></thead>
+          <tbody>${criteria.map(c=>`
+            <tr>
+              <td><strong>${c.program}</strong></td>
+              <td>${(c.matricWeight*100).toFixed(0)}%</td>
+              <td>${(c.fscWeight*100).toFixed(0)}%</td>
+              <td>${(c.testWeight*100).toFixed(0)}%</td>
+              <td><span class="badge badge-blue">${c.testRequired}</span></td>
+              <td>${c.lastMerit?c.lastMerit+'%':'–'}</td>
+              <td>${c.seats||'–'}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`:''}
+    <div style="margin-top:20px;display:flex;gap:10px">
+      ${u.website?`<a href="${u.website}" target="_blank" class="btn btn-green">🌐 Visit Website</a>`:''}
+      <button class="btn" style="background:var(--surface);border:1.5px solid var(--border);color:var(--ink)" onclick="closeUniModal()">Close</button>
+    </div>`;
+  document.getElementById('uni-modal').classList.remove('hidden');
+}
+
+function closeUniModal(e) {
+  if(!e || e.target===document.getElementById('uni-modal')) {
+    document.getElementById('uni-modal').classList.add('hidden');
   }
 }
 
-// ═══════════════════════════════════
-// ALERTS & DEADLINES
-// ═══════════════════════════════════
-function renderAlerts() {
-  const dl = document.getElementById('deadlines-list');
-  if (!dl) return;
-  dl.innerHTML = DEADLINES.map(d => `
-    <div class="deadline-item">
-      <div class="deadline-date">${d.date}</div>
-      <div class="deadline-info">
-        <strong>${d.title}</strong>
-        <span>${d.org}</span>
+// ─── MERIT ────────────────────────────────────────────────────────────────────
+function calculateMerit() {
+  const matric = parseFloat(document.getElementById('m-matric').value)||0;
+  const fsc = parseFloat(document.getElementById('m-fsc').value)||0;
+  const ecat = parseFloat(document.getElementById('m-ecat').value)||null;
+  const mdcat = parseFloat(document.getElementById('m-mdcat').value)||null;
+  const nts = parseFloat(document.getElementById('m-nts').value)||null;
+  const city = document.getElementById('m-city').value;
+  const programs = document.getElementById('m-programs').value.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
+  if(!matric||!fsc){alert('Please enter Matric and FSc percentages.');return;}
+
+  const meritScores = {
+    'UET/Engineering (ECAT)': Math.round(matric*0.10+fsc*0.40+(ecat||0)*0.50),
+    'PMDC/Medical (MDCAT)': Math.round(matric*0.10+fsc*0.40+(mdcat?mdcat/2.1:0)*0.50),
+    'NTS General': Math.round(matric*0.15+fsc*0.50+(nts||0)*0.35),
+    'Self-Finance': Math.round(matric*0.20+fsc*0.80),
+  };
+
+  document.getElementById('merit-scores').innerHTML = `
+    <h3 style="font-family:'Syne',sans-serif;margin-bottom:12px">Your Merit Scores</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:24px">
+      ${Object.entries(meritScores).map(([k,v])=>`
+        <div class="result-card" style="text-align:center">
+          <div style="font-size:.78rem;color:var(--ink-soft);margin-bottom:4px">${k}</div>
+          <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--green)">${v}%</div>
+        </div>`).join('')}
+    </div>`;
+
+  const matches = ADMISSION_CRITERIA
+    .filter(c=>{
+      const u = UNIVERSITIES.find(x=>x.id===c.universityId);
+      if(!u) return false;
+      if(city && u.city!==city) return false;
+      if(programs.length && !programs.some(p=>c.program.toLowerCase().includes(p))) return false;
+      return true;
+    })
+    .map(c=>{
+      const u = UNIVERSITIES.find(x=>x.id===c.universityId);
+      const testMap = {ECAT:ecat,MDCAT:mdcat?mdcat/2.1:null,NTS:nts,GAT:null};
+      const testScore = testMap[c.testRequired]||0;
+      const calc = Math.round(matric*c.matricWeight+fsc*c.fscWeight+testScore*c.testWeight);
+      const last = c.lastMerit;
+      let chance='low', gap=null;
+      if(last){gap=Math.round((calc-last)*10)/10;chance=gap>=2?'high':gap>=-3?'medium':'low';}
+      else{chance=calc>=75?'high':calc>=60?'medium':'low';}
+      return {u,c,calc,last,chance,gap};
+    })
+    .sort((a,b)=>{const o={high:0,medium:1,low:2};return o[a.chance]-o[b.chance]||b.calc-a.calc;});
+
+  if(!matches.length){document.getElementById('merit-result').innerHTML='<div class="empty"><div class="empty-icon">📊</div><p>No matching criteria found. Try removing city or program filters.</p></div>';return;}
+
+  document.getElementById('merit-result').innerHTML = `
+    <h3 style="font-family:'Syne',sans-serif;margin-bottom:12px">University Matches (${matches.length})</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>University</th><th>Program</th><th>Your Merit</th><th>Last Merit</th><th>Gap</th><th>Chance</th></tr></thead>
+        <tbody>${matches.map(m=>`
+          <tr>
+            <td><strong>${m.u.name}</strong><br><span style="font-size:.78rem;color:var(--ink-soft)">${m.u.city}</span></td>
+            <td>${m.c.program}</td>
+            <td style="font-family:'Syne',sans-serif;font-weight:700">${m.calc}%</td>
+            <td>${m.last?m.last+'%':'–'}</td>
+            <td style="font-family:'Syne',sans-serif">${m.gap!=null?(m.gap>0?'+':'')+m.gap+'%':'–'}</td>
+            <td><span class="chance-${m.chance}">${m.chance==='high'?'✅ High':m.chance==='medium'?'⚡ Medium':'❌ Low'}</span></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+}
+
+// ─── TESTS ────────────────────────────────────────────────────────────────────
+const TEST_CATS = {
+  ECAT:{name:"Engineering College Admission Test",subjects:["Mathematics","Physics","Chemistry","English"],totalQ:100,duration:150,desc:"Entrance exam for engineering programs at public sector universities in Punjab."},
+  MDCAT:{name:"Medical & Dental College Admission Test",subjects:["Biology","Chemistry","Physics","English","Logical Reasoning"],totalQ:200,duration:200,desc:"National entry test for MBBS and BDS programs across Pakistan."},
+  NTS:{name:"National Testing Service",subjects:["Verbal","Quantitative","Analytical"],totalQ:100,duration:120,desc:"Standardized test accepted by many universities for undergraduate admissions."},
+  GAT:{name:"Graduate Assessment Test",subjects:["Verbal","Quantitative","Analytical"],totalQ:100,duration:120,desc:"Required for graduate admissions (MS/MPhil) at HEC-recognized universities."}
+};
+
+function initTests() {
+  selectTestType('ECAT', document.querySelector('#test-type-tabs .pill-tab'));
+}
+
+function selectTestType(type, el) {
+  currentTestType = type;
+  document.querySelectorAll('#test-type-tabs .pill-tab').forEach(b=>b.classList.remove('active'));
+  if(el) el.classList.add('active');
+  const tc = TEST_CATS[type];
+  document.getElementById('test-info-panel').innerHTML = `
+    <div class="result-card" style="margin-bottom:20px">
+      <h3 style="font-family:'Syne',sans-serif;margin-bottom:6px">${tc.name}</h3>
+      <p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:10px">${tc.desc}</p>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:.85rem">
+        <span>📚 Subjects: <strong>${tc.subjects.join(', ')}</strong></span>
+        <span>❓ Questions: <strong>${tc.totalQ}</strong></span>
+        <span>⏱️ Duration: <strong>${tc.duration} min</strong></span>
       </div>
-      <span class="deadline-tag badge" style="background:${d.color}22;color:${d.color};">${d.type}</span>
+    </div>`;
+  document.getElementById('test-panel').innerHTML='';
+  if(mockTestTimer) { clearInterval(mockTestTimer); mockTestTimer=null; }
+}
+
+function startMockTest() {
+  const allQ = MCQ_QUESTIONS.filter(q=>q.testType===currentTestType);
+  if(!allQ.length){alert('No questions available for this test type.');return;}
+  mockTestQuestions = allQ.sort(()=>Math.random()-.5).slice(0,Math.min(10,allQ.length));
+  mockTestAnswers = {};
+  mockTestSubmitted = false;
+  mockTestSeconds = Math.min(10,mockTestQuestions.length)*2*60;
+  renderMockTest();
+  startTimer();
+}
+
+function startTimer() {
+  if(mockTestTimer) clearInterval(mockTestTimer);
+  mockTestTimer = setInterval(()=>{
+    mockTestSeconds--;
+    const tv = document.getElementById('timer-val');
+    if(tv){
+      const m=Math.floor(mockTestSeconds/60),s=mockTestSeconds%60;
+      tv.textContent = `${m}:${s.toString().padStart(2,'0')}`;
+      if(mockTestSeconds<=60) tv.className='timer-val warn';
+    }
+    if(mockTestSeconds<=0){clearInterval(mockTestTimer);submitMockTest();}
+  },1000);
+}
+
+function renderMockTest() {
+  const m=Math.floor(mockTestSeconds/60),s=mockTestSeconds%60;
+  document.getElementById('test-panel').innerHTML = `
+    <div class="timer-bar">
+      <span style="font-weight:600">Mock Test — ${currentTestType} (${mockTestQuestions.length} Questions)</span>
+      <span>Time: <span id="timer-val" class="timer-val">${m}:${s.toString().padStart(2,'0')}</span></span>
     </div>
-  `).join('');
-
-  const cl = document.getElementById('doc-checklist');
-  if (!cl) return;
-  const saved = JSON.parse(localStorage.getItem('checklist') || '{}');
-  cl.innerHTML = DOCUMENTS.map((doc, i) => `
-    <div class="checklist-item">
-      <input type="checkbox" id="doc-${i}" ${saved[i]?'checked':''} onchange="saveChecklist(${i},this.checked)">
-      <label for="doc-${i}">${doc}</label>
+    <div id="mock-questions">
+      ${mockTestQuestions.map((q,qi)=>`
+        <div class="result-card" style="margin-bottom:14px" id="mq-${q.id}">
+          <div style="font-size:.8rem;color:var(--ink-soft);margin-bottom:6px">Q${qi+1} · ${q.subject} · <span class="badge ${q.difficulty==='easy'?'badge-green':q.difficulty==='medium'?'badge-gold':'badge-red'}">${q.difficulty}</span></div>
+          <div style="font-weight:600;margin-bottom:12px">${q.question}</div>
+          ${q.options.map((o,i)=>`<div class="mcq-opt" id="mopt-${q.id}-${i}" onclick="selectMcqOpt(${q.id},${i})">${'ABCD'[i]}. ${o}</div>`).join('')}
+        </div>`).join('')}
     </div>
-  `).join('');
+    <button class="btn btn-green" onclick="submitMockTest()" style="margin-top:8px">Submit Test</button>`;
 }
 
-function saveChecklist(idx, val) {
-  const saved = JSON.parse(localStorage.getItem('checklist') || '{}');
-  saved[idx] = val;
-  localStorage.setItem('checklist', JSON.stringify(saved));
+function selectMcqOpt(qid, idx) {
+  if(mockTestSubmitted) return;
+  mockTestAnswers[qid] = idx;
+  document.querySelectorAll(`[id^="mopt-${qid}-"]`).forEach(el=>el.className='mcq-opt');
+  document.getElementById(`mopt-${qid}-${idx}`).className='mcq-opt selected';
 }
 
-function clearChecklist() {
-  localStorage.removeItem('checklist');
-  renderAlerts();
+function submitMockTest() {
+  if(mockTestSubmitted) return;
+  mockTestSubmitted=true;
+  if(mockTestTimer){clearInterval(mockTestTimer);mockTestTimer=null;}
+  let correct=0,incorrect=0,unattempted=0;
+  const subjectMap={};
+  mockTestQuestions.forEach(q=>{
+    if(!subjectMap[q.subject])subjectMap[q.subject]={correct:0,total:0};
+    subjectMap[q.subject].total++;
+    if(mockTestAnswers[q.id]===undefined){unattempted++;}
+    else if(mockTestAnswers[q.id]===q.correctIndex){correct++;subjectMap[q.subject].correct++;}
+    else{incorrect++;}
+    // Colour options
+    q.options.forEach((_,i)=>{
+      const el=document.getElementById(`mopt-${q.id}-${i}`);
+      if(!el)return;
+      if(i===q.correctIndex){el.className='mcq-opt correct';}
+      else if(mockTestAnswers[q.id]===i){el.className='mcq-opt wrong';}
+    });
+    // Show explanation
+    if(q.explanation){
+      const block=document.getElementById(`mq-${q.id}`);
+      if(block){const ex=document.createElement('div');ex.style.cssText='margin-top:10px;padding:10px;background:var(--surface);border-radius:8px;font-size:.83rem;color:var(--ink-mid)';ex.innerHTML=`<strong>💡 Explanation:</strong> ${q.explanation}`;block.appendChild(ex);}
+    }
+  });
+  const pct=Math.round((correct/mockTestQuestions.length)*100);
+  const tv=document.getElementById('timer-val');
+  if(tv)tv.textContent='Done';
+  // Insert score summary at top
+  const mqDiv=document.getElementById('mock-questions');
+  if(mqDiv){
+    const summary=document.createElement('div');
+    summary.className='form-card';
+    summary.style.cssText='margin-bottom:24px;background:var(--green-pale);border-color:var(--green);text-align:center';
+    summary.innerHTML=`
+      <div style="font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;color:var(--green)">${pct}%</div>
+      <div style="font-size:.88rem;color:var(--ink-mid)">✅ ${correct} Correct · ❌ ${incorrect} Incorrect · ⭕ ${unattempted} Unattempted</div>
+      <div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        ${Object.entries(subjectMap).map(([s,d])=>`<span class="badge badge-blue">${s}: ${d.correct}/${d.total}</span>`).join('')}
+      </div>`;
+    mqDiv.prepend(summary);
+  }
+  const subBtn=document.querySelector('#test-panel button.btn-green');
+  if(subBtn){subBtn.textContent='🔄 Try Again';subBtn.onclick=startMockTest;}
 }
 
-// ═══════════════════════════════════
-// SCHOLARSHIPS
-// ═══════════════════════════════════
-function renderScholarships() {
-  const type = document.getElementById('s-type')?.value || '';
-  const prog = document.getElementById('s-prog')?.value || '';
-  const filtered = SCHOLARSHIPS.filter(s => {
-    if (type && s.type !== type) return false;
-    if (prog && !s.programs.includes(prog) && !s.programs.includes('Any Program')) return false;
+function showPractice() {
+  if(mockTestTimer){clearInterval(mockTestTimer);mockTestTimer=null;}
+  const qs=MCQ_QUESTIONS.filter(q=>q.testType===currentTestType);
+  if(!qs.length){document.getElementById('test-panel').innerHTML='<div class="empty"><div class="empty-icon">📝</div><p>No practice questions available yet.</p></div>';return;}
+  document.getElementById('test-panel').innerHTML=`
+    <h3 style="font-family:'Syne',sans-serif;margin-bottom:16px">Practice Questions — ${currentTestType} (${qs.length} questions)</h3>
+    ${qs.map((q,i)=>`
+      <div class="result-card" style="margin-bottom:14px">
+        <div style="font-size:.8rem;color:var(--ink-soft);margin-bottom:6px">Q${i+1} · ${q.subject}${q.topic?` · ${q.topic}`:''} · <span class="badge ${q.difficulty==='easy'?'badge-green':q.difficulty==='medium'?'badge-gold':'badge-red'}">${q.difficulty}</span></div>
+        <div style="font-weight:600;margin-bottom:12px">${q.question}</div>
+        ${q.options.map((o,oi)=>`<div class="mcq-opt" id="po-${q.id}-${oi}" onclick="revealAns(${q.id})">${'ABCD'[oi]}. ${o}</div>`).join('')}
+        <div id="pa-${q.id}" style="display:none;margin-top:10px;padding:10px;background:var(--surface);border-radius:8px;font-size:.83rem">
+          <span class="badge badge-green">✅ Answer: ${'ABCD'[q.correctIndex]}. ${q.options[q.correctIndex]}</span>
+          ${q.explanation?`<p style="margin-top:6px;color:var(--ink-mid)">${q.explanation}</p>`:''}
+        </div>
+      </div>`).join('')}`;
+}
+
+function revealAns(qid) {
+  const el=document.getElementById(`pa-${qid}`);
+  if(el)el.style.display='block';
+}
+
+// ─── SCHOLARSHIPS ─────────────────────────────────────────────────────────────
+function renderScholarships() { filterScholarships(); }
+
+function filterScholarships() {
+  const search=(document.getElementById('sch-search').value||'').toLowerCase();
+  const type=document.getElementById('sch-type').value;
+  let schs=SCHOLARSHIPS.filter(s=>{
+    if(search&&!s.name.toLowerCase().includes(search)&&!s.eligibility.toLowerCase().includes(search))return false;
+    if(type&&s.type!==type)return false;
     return true;
   });
-  document.getElementById('scholarships-list').innerHTML = filtered.map(s => `
-    <div class="scholarship-card">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
-        <h3>${s.name}</h3>
-        <span class="badge badge-gold" style="white-space:nowrap;">${s.type}</span>
+  const typeColor={merit:'badge-gold','need-based':'badge-blue',government:'badge-green',international:'badge-red'};
+  const el=document.getElementById('scholarships-list');
+  if(!schs.length){el.innerHTML='<div class="empty"><div class="empty-icon">🎓</div><p>No scholarships found.</p></div>';return;}
+  el.innerHTML=schs.map(s=>`
+    <div class="sch-card">
+      <div class="flex-between" style="margin-bottom:6px">
+        <div class="sch-name">${s.name}</div>
+        <span class="badge ${typeColor[s.type]||'badge-gray'}">${s.type}</span>
       </div>
-      <div class="scholarship-meta">
-        <span>🏛️ <strong>${s.provider}</strong></span>
-        <span>📅 Deadline: <strong>${s.deadline}</strong></span>
-        <span>💰 <strong>${s.amount}</strong></span>
-      </div>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">📋 ${s.eligibility}</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        ${s.programs.map(p => `<span class="badge badge-green">${p}</span>`).join('')}
-        <a href="${s.link}" target="_blank" class="btn btn-outline btn-sm" style="text-decoration:none;">Visit Website →</a>
-      </div>
-    </div>
-  `).join('');
+      <div class="sch-amount">${s.amount}</div>
+      <p style="font-size:.85rem;color:var(--ink-mid);margin-bottom:8px"><strong>Eligibility:</strong> ${s.eligibility}</p>
+      ${s.deadline?`<p style="font-size:.82rem;color:var(--ink-soft)">📅 Deadline: <strong>${new Date(s.deadline).toLocaleDateString('en-PK',{day:'numeric',month:'long',year:'numeric'})}</strong></p>`:''}
+      ${s.programs?`<div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px">${s.programs.map(p=>`<span class="prog-tag">${p}</span>`).join('')}</div>`:''}
+      ${s.link?`<div style="margin-top:10px"><a href="${s.link}" target="_blank" class="btn btn-green" style="font-size:.82rem;padding:7px 14px">🌐 Apply Now</a></div>`:''}
+    </div>`).join('');
 }
 
-function filterScholarships() { renderScholarships(); }
+// ─── FORUM ───────────────────────────────────────────────────────────────────
+function renderForum() {
+  document.getElementById('forum-post-detail').style.display='none';
+  document.getElementById('forum-list').style.display='block';
+  filterForum(currentForumCat);
+}
 
-// ═══════════════════════════════════
-// INIT
-// ═══════════════════════════════════
-renderUnis();
+function filterForum(cat, el) {
+  currentForumCat=cat;
+  if(el){document.querySelectorAll('#forum-cat-tabs .pill-tab').forEach(b=>b.classList.remove('active'));el.classList.add('active');}
+  const posts=forumPosts.filter(p=>!cat||p.category===cat);
+  const catColor={admissions:'badge-green',career:'badge-blue','test-prep':'badge-gold',scholarships:'badge-red',general:'badge-gray'};
+  document.getElementById('forum-list').innerHTML=posts.length?posts.map(p=>`
+    <div class="post-card" onclick="showPost(${p.id})">
+      <div class="flex-between" style="margin-bottom:6px">
+        <div class="post-title">${p.title}</div>
+        <span class="post-tag badge ${catColor[p.category]||'badge-gray'}">${p.category}</span>
+      </div>
+      <p style="font-size:.85rem;color:var(--ink-mid);margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${p.body}</p>
+      <div class="post-meta">
+        <span>👤 ${p.author}</span>
+        <span>💬 ${p.replyCount} replies</span>
+        <span>❤️ ${p.likes}</span>
+        <span>🕐 ${new Date(p.createdAt).toLocaleDateString()}</span>
+      </div>
+    </div>`).join(''):'<div class="empty"><div class="empty-icon">💬</div><p>No posts in this category yet. Be the first to post!</p></div>';
+}
+
+function showPost(id) {
+  const p=forumPosts.find(x=>x.id===id);
+  if(!p)return;
+  document.getElementById('forum-list').style.display='none';
+  const detail=document.getElementById('forum-post-detail');
+  detail.style.display='block';
+  detail.innerHTML=`
+    <button onclick="renderForum()" style="background:none;border:none;color:var(--green);cursor:pointer;font-weight:600;margin-bottom:16px">← Back to Forum</button>
+    <div class="form-card" style="margin-bottom:16px">
+      <h2 style="font-family:'Syne',sans-serif;font-size:1.1rem;margin-bottom:10px">${p.title}</h2>
+      <p style="color:var(--ink-mid);margin-bottom:12px">${p.body}</p>
+      <div class="post-meta"><span>👤 ${p.author}</span><span>🕐 ${new Date(p.createdAt).toLocaleDateString()}</span><span>❤️ ${p.likes}</span></div>
+    </div>
+    <h3 style="font-family:'Syne',sans-serif;margin-bottom:12px">Replies (${p.replies?p.replies.length:0})</h3>
+    <div id="replies-list">
+      ${p.replies?p.replies.map(r=>`
+        <div class="result-card" style="margin-bottom:10px">
+          <p style="color:var(--ink-mid);margin-bottom:8px">${r.body}</p>
+          <div class="post-meta"><span>👤 ${r.author}</span><span>🕐 ${new Date(r.createdAt).toLocaleDateString()}</span><span>❤️ ${r.likes}</span></div>
+        </div>`).join(''):'<p style="color:var(--ink-soft)">No replies yet.</p>'}
+    </div>
+    <div class="form-card" style="margin-top:16px">
+      <h4 style="font-family:'Syne',sans-serif;margin-bottom:12px">Add a Reply</h4>
+      <div class="form-group" style="margin-bottom:10px"><label>Your Name</label><input type="text" id="r-author" placeholder="Anonymous Student"/></div>
+      <div class="form-group" style="margin-bottom:12px"><label>Reply</label><textarea id="r-body" rows="3" placeholder="Write your reply…"></textarea></div>
+      <button class="btn btn-green" onclick="submitReply(${p.id})">Post Reply</button>
+    </div>`;
+}
+
+function submitReply(postId) {
+  const body=document.getElementById('r-body').value.trim();
+  const author=document.getElementById('r-author').value.trim()||'Anonymous';
+  if(!body){alert('Please write a reply.');return;}
+  const p=forumPosts.find(x=>x.id===postId);
+  if(!p)return;
+  if(!p.replies)p.replies=[];
+  p.replies.push({id:Date.now(),postId,body,author,createdAt:new Date().toISOString(),likes:0});
+  p.replyCount=(p.replies||[]).length;
+  showPost(postId);
+}
+
+function showNewPost() {
+  document.getElementById('new-post-form').style.display=document.getElementById('new-post-form').style.display==='none'?'block':'none';
+}
+
+function submitPost() {
+  const title=document.getElementById('post-title').value.trim();
+  const body=document.getElementById('post-body').value.trim();
+  const author=document.getElementById('post-author').value.trim()||'Anonymous Student';
+  const category=document.getElementById('post-cat').value;
+  if(!title||!body){alert('Please fill in the title and body.');return;}
+  forumPosts.unshift({id:Date.now(),title,body,author,category,createdAt:new Date().toISOString(),replyCount:0,likes:0,tags:[],replies:[]});
+  document.getElementById('new-post-form').style.display='none';
+  document.getElementById('post-title').value='';
+  document.getElementById('post-body').value='';
+  renderForum();
+}
+
+// ─── CALENDAR ─────────────────────────────────────────────────────────────────
+function renderCalendar() { filterCalendar(); }
+
+function filterCalendar() {
+  const type=document.getElementById('cal-type').value;
+  let events=DEADLINES.filter(d=>!type||d.type===type);
+  events=events.sort((a,b)=>new Date(a.deadline)-new Date(b.deadline));
+  const typeColor={application:'badge-green',test:'badge-gold',result:'badge-blue',enrollment:'badge-red'};
+  const el=document.getElementById('calendar-list');
+  if(!events.length){el.innerHTML='<div class="empty"><div class="empty-icon">📅</div><p>No deadlines found.</p></div>';return;}
+  const now=new Date();
+  el.innerHTML=events.map(d=>{
+    const dd=new Date(d.deadline);
+    const days=Math.ceil((dd-now)/(1000*60*60*24));
+    const past=days<0;
+    return `<div class="deadline-card" style="${past?'opacity:.55':''}">
+      <div>
+        <div class="deadline-date">${dd.toLocaleDateString('en-PK',{day:'numeric',month:'short'})}</div>
+        <div style="font-size:.72rem;color:var(--ink-soft)">${dd.getFullYear()}</div>
+      </div>
+      <div class="deadline-info">
+        <div class="deadline-title">${d.universityName} — ${d.program}</div>
+        <div class="deadline-sub">${d.notes||''}</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <span class="badge ${typeColor[d.type]||'badge-gray'}">${d.type}</span>
+        <div style="font-size:.75rem;margin-top:4px;color:${past?'var(--red)':days<=7?'var(--gold)':'var(--ink-soft)'}">
+          ${past?'Past':days===0?'Today':days===1?'Tomorrow':`${days} days`}
+        </div>
+      </div>
+    </div>`;}).join('');
+}
+
+// ─── DOCUMENTS ────────────────────────────────────────────────────────────────
+function renderDocuments() {
+  const cats=['academic','identity','financial','other'];
+  cats.forEach(cat=>{
+    const docs=DOCUMENTS.filter(d=>d.category===cat);
+    document.getElementById(`docs-${cat}`).innerHTML=docs.map(d=>`
+      <div class="doc-item">
+        <div class="doc-check${checkedDocs[d.id]?' done':''}" onclick="toggleDoc(${d.id},this)">
+          ${checkedDocs[d.id]?'✓':''}
+        </div>
+        <div>
+          <div style="font-weight:600;font-size:.9rem">${d.name} ${d.required?'<span style="color:var(--red);font-size:.75rem">*required</span>':''}</div>
+          <div style="font-size:.82rem;color:var(--ink-mid);margin-top:2px">${d.description}</div>
+          ${d.notes?`<div style="font-size:.78rem;color:var(--ink-soft);margin-top:2px">💡 ${d.notes}</div>`:''}
+        </div>
+      </div>`).join('');
+  });
+}
+
+function toggleDoc(id,el){
+  checkedDocs[id]=!checkedDocs[id];
+  el.className='doc-check'+(checkedDocs[id]?' done':'');
+  el.textContent=checkedDocs[id]?'✓':'';
+}
+
+// ─── BOOT ─────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  initQuiz();
+  // Add nav button for documents
+  const docBtn=document.createElement('button');
+  docBtn.textContent='Documents';
+  docBtn.id='nav-documents';
+  docBtn.onclick=()=>showPage('documents');
+  document.querySelector('.nav-links').appendChild(docBtn);
+});
 </script>
 </body>
 </html>
